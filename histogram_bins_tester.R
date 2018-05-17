@@ -8,7 +8,7 @@ histogram_bins_tester <- function(plot_objects){
   # if(test_histogram){
   #   p_build$data[[bar_index]]
   #   theoretical_binwidth <-     
-  }
+  #}
 
   
     
