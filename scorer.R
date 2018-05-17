@@ -16,7 +16,7 @@ vector <-   c( area_label,
 check_results <- rbind(check_results,vector)
 }
 
-geoms_counter <- function(plot_oject, n_of_layers){
+geoms_lister <- function(plot_oject, n_of_layers){
 geoms_in_plot <- c()
 for(i in 1:n_of_layers){  
   
@@ -24,6 +24,7 @@ for(i in 1:n_of_layers){
   geom <- class_list[1]
   geoms_in_plot <- c(geoms_in_plot,geom)
 }
+return(geoms_in_plot)
 }
 
 n_of_layers <-  plot_object$layers %>% length()
@@ -38,8 +39,7 @@ n_of_layers <-  plot_object$layers %>% length()
 
 ## is a pie chart?
 
-
-test <- 
+is_pie_chart()
 
 ## are there too many layers?
 
