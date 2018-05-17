@@ -1,4 +1,4 @@
-tester_vector <- function(area_label, topic_label, test, additional_data){
+tester_vector <- function(check_results,area_label, topic_label, test, additional_data){
   
   vector <-   list(area_label,
                    topic_label,

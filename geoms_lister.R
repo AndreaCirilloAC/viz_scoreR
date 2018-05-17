@@ -1,4 +1,4 @@
-geoms_lister <- function(plot_oject, n_of_layers){
+geoms_lister <- function(plot_object, n_of_layers){
   geoms_in_plot <- c()
   for(i in 1:n_of_layers){  
     

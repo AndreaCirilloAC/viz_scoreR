@@ -24,4 +24,20 @@ ggplot(first,aes(Month,Wind)) +
   geom_path(aes(group = Day))+
   xlab("other")-> g
 p_build_b <- (ggplot_build(g))
+
 g_table_b <- ggplot_gtable(p_build_b)
+
+
+ggplot(first,aes(Month,Wind)) + 
+  geom_bar(stat = 'identity',aes(fill = NULL))
+
+
+#pie_chart
+
+ggplot(first, aes(x = Month, Wind))+
+  geom_bar(stat = 'identity')+
+  coord_polar("y")+
+  labs(title = "titolo")+
+  theme(plot.title = element_text(face = "bold"))-> pie_chart
+
+ggplot_build(pie_chart)-> pie_chart_build
