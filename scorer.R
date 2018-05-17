@@ -10,10 +10,12 @@ scorer <- function(plot_object){
 
 n_of_layers <-  plot_object$layers %>% length()
 
-area_categories <- c("meaningfulnes of the plot",
+area_categories <- c("readability of the plot",
                      "data density",
                      "data to ink ratio",
                      "adequateness of labeling")
+
+p_build <- ggplot_build(plot_object)
 
 # perform checks for each of the area and principle and assign a score
 
@@ -44,6 +46,10 @@ check_results <- tester_vector(check_results,
                                topic_label = "number_of_dimensions",
                                test = too_much_dimensions(plot_object,n_of_layers),
                                additional_data= list())
+
+## in case of geom_histogram study the optimal number of bins, employing the Freedman Diaconis rule
+
+histogram_result <- tester_vector()
 
 # DATA DENSITY
 
