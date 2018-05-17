@@ -8,28 +8,23 @@ check_results <- list(area = c(),
 
 tester_vector <- function(area_label, topic_label, test, additional_data){
   
-vector <-   c( area_label,
+vector <-   list(area_label,
      topic_label,
      test,
      additional_data)
   
 check_results <- rbind(check_results,vector)
+return(check_results)
 }
 
-geoms_lister <- function(plot_oject, n_of_layers){
-geoms_in_plot <- c()
-for(i in 1:n_of_layers){  
-  
-  class_list <- plot_object$layers[[i]]$geom %>% class() %>% as.vector()
-  geom <- class_list[1]
-  geoms_in_plot <- c(geoms_in_plot,geom)
-}
-return(geoms_in_plot)
-}
+
 
 n_of_layers <-  plot_object$layers %>% length()
 
-
+area_categories <- c("meaningfulnes of the plot",
+                     "data density",
+                     "data to ink ratio",
+                     "adequateness of labeling")
 
 # perform checks for each of the area and principle and assign a score
 
@@ -39,9 +34,14 @@ n_of_layers <-  plot_object$layers %>% length()
 
 ## is a pie chart?
 
-is_pie_chart()
+check_results <- tester_vector(area_label = area_categories[1],
+                               topic_label = "pie chart",
+                               test = is_pie_chart(plot_object, n_of_layers),
+                               additional_data = list())
 
 ## are there too many layers?
+
+#check_results <- tester_vector(area_label = area_ca)
 
 ## is the user showing more dimensions than the plot would allow to?
 
