@@ -1,11 +1,18 @@
 mappings_lister <- function(plot_object,n_of_layers){
-  aes_names <- c()
+
+ 
+  aes_db <-data.frame("aes" = plot_object$mapping %>% unlist() %>% names(),
+                                    "variable" = plot_object$mapping %>% unlist() %>% as.character() )
+  
   for(i in 1:n_of_layers){
     aes_names_partial <- plot_object$layers[[i]]$mapping %>% unlist() %>% names()
-    aes_names <- append(aes_names,aes_names_partial)
+    aes_values_partial <- plot_object$layers[[1]]$mapping %>% unlist() %>% as.character()
+    aes_db <- rbind(aes_db,data.frame("aes"=aes_names_partial,"variable"=aes_values_partial))
+
+    return(aes_db)
   }
 
   #in the end I add the mapping set into ggplot()
-  aes_names <- append(aes_names,plot_object$mapping %>% unlist() %>% names())
-  return(aes_names)
+ 
+  return(aes_db)
 }
