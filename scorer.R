@@ -1,6 +1,8 @@
 scorer <- function(plot_object){
 
-  
+  # preliminary chech on arguments of the function and...
+      # ... existance of data ( may be redundant since ggplot already does it)
+      # ... 
   # create data frame to be used to store results of every rating module
 
   check_results <- list(area = c(), 
@@ -14,6 +16,9 @@ area_categories <- c("readability of the plot",
                      "data density",
                      "data to ink ratio",
                      "adequateness of labeling")
+
+default_n_of_bins <- 30 # the default ggplot setting for the number of bins
+data_threshold    <- 20 # following tufte we set 20 as threshold to suggest the useR to avoid graphs
 
 p_build <- ggplot_build(plot_object)
 
@@ -49,9 +54,21 @@ check_results <- tester_vector(check_results,
 
 ## in case of geom_histogram study the optimal number of bins, employing the Freedman Diaconis rule
 
-histogram_result <- tester_vector()
+check_results <- tester_vector(check_results,
+                                  area_label = area_categories[1],
+                                  topic_label = "number_of_bins",
+                                  test = histogram_bins_tester(plot_object,n_of_layers)[[1]], #true here means we are looking at an histogram
+                                  additional_data =histogram_bins_tester(plot_object,n_of_layers)[2:3] )
 
 # DATA DENSITY
+
+## we check here for the user wasting his time developing a graph for less than 20 points to show
+
+check_results <-  tester_vector(check_results,
+                                area_label      = area_categories[2],
+                                topic_label     = "sufficien_number_of_data",
+                                test            = too_few_data(plot_object), #TRUE here means you have enough data
+                                additional_data = list ())
 
 # DATA TO INK RATIO
 
