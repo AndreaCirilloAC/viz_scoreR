@@ -4,7 +4,7 @@ scorer <- function(plot_object){
       # ... existance of data ( may be redundant since ggplot already does it)
       # ... 
   # create data frame to be used to store results of every rating module
-
+  #constraints: data must e provided within ggplot() call
   check_results <- list(area = c(), 
                         check = c(), 
                         result = c(),
@@ -67,8 +67,9 @@ check_results <- tester_vector(check_results,
 check_results <-  tester_vector(check_results,
                                 area_label      = area_categories[2],
                                 topic_label     = "sufficien_number_of_data",
-                                test            = too_few_data(plot_object), #TRUE here means you have enough data
+                                test            = too_few_data(plot_object, data_threshold), #TRUE here means you have enough data
                                 additional_data = list ())
+
 
 # DATA TO INK RATIO
 
