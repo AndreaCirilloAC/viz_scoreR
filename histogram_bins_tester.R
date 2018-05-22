@@ -8,9 +8,7 @@ histogram_bins_tester <- function(plot_objects, n_of_layers){
   ## the optimal number of bins based on the Freedman Diaconis rule
 
 if(test_histogram){
-aes_db     <- mappings_lister(plot_object , n_of_layers )
-variable_name   <- aes_db %>% filter(aes == "x") %>% select("variable") %>% pull()
-variable_vector <- plot_object$data[,variable_name]
+variable_vector <- aes_puller(plot_object,n_of_layers,required_aes = "x")
 optimal_bw       <-  2 * (IQR(variable_vector) / length(variable_vector)^(1/3)) 
 actual_bw_index  <- match("binwidth",bar_stat_params)
 actual_bw          <- plot_object$layers[[bar_index]]$stat_params[[actual_bw_index]] 
