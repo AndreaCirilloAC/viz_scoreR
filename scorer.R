@@ -95,13 +95,50 @@ check_results <- tester_vector(check_results,
                                topic_label = "use_of_grey_background",
                                test = heavy_background(plot_object),
                                additional_data = list()) #TRUE here means we are looking at an heavy background, either being one set from the user or the default one ( if still grey)
+## check for bar map with full, non white filling not mapped to any aes
+
+check_results <- tester_vector(check_results ,
+                               area_label = area_categories[3],
+                               topic_label = "filled_barplot",
+                               test = filled_barplot(plot_object,n_of_layers),
+                               additional_data = list()) #TRUE here means we are looking at an ink-wasting barplot filled with one meaningless colour
+
 
 # ADEQUATENESS OF LABELLING
 
+##check for presence of descriptive labels: title, subtitle and caption
 
+check_results <- tester_vector(check_results,
+                               area_label = area_categories[4],
+                               topic_label = "presence_of_title",
+                               test = labels_finder(plot_object,"title"), # TRUE here means we found the label
+                               additional_data = list())
 
+check_results <- tester_vector(check_results,
+                               area_label = area_categories[4],
+                               topic_label = "presence_of_subtitle",
+                               test = labels_finder(plot_object,"subtitle"), # TRUE here means we found the label
+                               additional_data = list())
 
+check_results <- tester_vector(check_results,
+                               area_label = area_categories[4],
+                               topic_label = "presence_of_caption",
+                               test = labels_finder(plot_object,"caption"), # TRUE here means we found the label
+                               additional_data = list())
 
+## loook for special characters within labels
 
+check_results <- tester_vector(check_results ,
+                               area_label = area_categories[4],
+                               topic_label = "special_characters_in_label",
+                               test = labels_reader(plot_object)[1],
+                               additional_data = labels_reader(plot_object)[2])
+## a polished check : we try to understand if there are outliers in data and if they are in some way labeled within the plot
+
+check_results <- tester_vector(check_results,
+                               area_label = area_categories[4],
+                               topic_label = "outliers_not_labelled",
+                               test = outlier_labels(plot_object),
+                               additional_data = list())  #FALSE here means we have outliers not labelled
 
 return(check_results)}
