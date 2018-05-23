@@ -8,7 +8,10 @@ scorer <- function(plot_object){
   #   stop("Attempted to create layer with no geom.", call. = FALSE)
   
   # create data frame to be used to store results of every rating module
-  #constraints: data must e provided within ggplot() call
+  
+  #constraints: 
+    # data must e provided within ggplot() call
+    # no overplotting check for histograms ( and generally where no y is provided)
   check_results <- list(area = c(), 
                         check = c(), 
                         result = c(),
