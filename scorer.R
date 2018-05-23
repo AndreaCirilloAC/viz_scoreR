@@ -3,6 +3,10 @@ scorer <- function(plot_object){
   # preliminary chech on arguments of the function and...
       # ... existance of data ( may be redundant since ggplot already does it)
       # ... 
+  
+  # if (is.null(geom))
+  #   stop("Attempted to create layer with no geom.", call. = FALSE)
+  
   # create data frame to be used to store results of every rating module
   #constraints: data must e provided within ggplot() call
   check_results <- list(area = c(), 
@@ -17,8 +21,9 @@ area_categories <- c("readability of the plot",
                      "data to ink ratio",
                      "adequateness of labeling")
 
-default_n_of_bins <- 30 # the default ggplot setting for the number of bins
-data_threshold    <- 20 # following tufte we set 20 as threshold to suggest the useR to avoid graphs
+default_n_of_bins  <- 30 # the default ggplot setting for the number of bins
+data_threshold     <- 20 # following tufte we set 20 as threshold to suggest the useR to avoid graphs
+overplotting_floor <-  2
 
 p_build <- ggplot_build(plot_object)
 
@@ -66,10 +71,17 @@ check_results <- tester_vector(check_results,
 
 check_results <-  tester_vector(check_results,
                                 area_label      = area_categories[2],
-                                topic_label     = "sufficien_number_of_data",
+                                topic_label     = "sufficient_number_of_data",
                                 test            = too_few_data(plot_object, data_threshold), #TRUE here means you have enough data
                                 additional_data = list ())
 
+## check here for overplotting
+
+check_results <- tester_vector(check_results,
+                               area_label = area_categories[2],
+                               topic_label = "overplotting",
+                               test       = cozy_plot(plot_object, n_of_layers)[[1]],
+                               additional_data = cozy_plot(plot_object, n_of_layers)[-1])
 
 # DATA TO INK RATIO
 
