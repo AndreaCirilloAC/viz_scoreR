@@ -26,7 +26,7 @@ area_categories <- c("readability of the plot",
 
 default_n_of_bins  <- 30 # the default ggplot setting for the number of bins
 data_threshold     <- 20 # following tufte we set 20 as threshold to suggest the useR to avoid graphs
-overplotting_floor <-  2
+overplotting_floor <-  2 # judgmental, based on experience
 
 p_build <- ggplot_build(plot_object)
 
@@ -83,10 +83,18 @@ check_results <-  tester_vector(check_results,
 check_results <- tester_vector(check_results,
                                area_label = area_categories[2],
                                topic_label = "overplotting",
-                               test       = cozy_plot(plot_object, n_of_layers)[[1]],
-                               additional_data = cozy_plot(plot_object, n_of_layers)[-1])
+                               test       = cozy_plot(plot_object, n_of_layers)[[1]], # TRUE here means we are looking at a cozy plot
+                               additional_data = cozy_plot(plot_object, n_of_layers)[[2]])
 
 # DATA TO INK RATIO
+
+## check for the use of default theme and by that way the grey background
+
+check_results <- tester_vector(check_results,
+                               area_label = area_categories[3],
+                               topic_label = "use_of_grey_background",
+                               test = heavy_background(plot_object),
+                               additional_data = list()) #TRUE here means we are looking at an heavy background, either being one set from the user or the default one ( if still grey)
 
 # ADEQUATENESS OF LABELLING
 
