@@ -12,10 +12,7 @@ scorer <- function(plot_object){
   #constraints: 
     # data must e provided within ggplot() call
     # no overplotting check for histograms ( and generally where no y is provided)
-  check_results <- list(area = c(), 
-                        check = c(), 
-                        result = c(),
-                        additional_data = list())
+                 
 
 n_of_layers <-  plot_object$layers %>% length()
 
@@ -38,15 +35,14 @@ p_build <- ggplot_build(plot_object)
 
 ## is a pie chart?
 
-check_results <- tester_vector(check_results,
-                               area_label = area_categories[1],
+pie_results <- list(           area_label = area_categories[1],
                                topic_label = "pie_chart",
                                test = is_pie_chart(plot_object, n_of_layers),
                                additional_data = list())
 
 ## are there too many layers?
 
-check_results <- tester_vector(check_results,
+layers_results <- list(
                                area_label = area_categories[1],
                                topic_label = "number_of_layers",
                                test = n_of_layers>10,
@@ -54,7 +50,7 @@ check_results <- tester_vector(check_results,
 
 ## is the user showing more dimensions than the plot would allow to?
 
-check_results <- tester_vector(check_results,
+dimension_results <- list(
                                area_label = area_categories[1],
                                topic_label = "number_of_dimensions",
                                test = too_much_dimensions(plot_object,n_of_layers),
@@ -62,7 +58,7 @@ check_results <- tester_vector(check_results,
 
 ## in case of geom_histogram study the optimal number of bins, employing the Freedman Diaconis rule
 
-check_results <- tester_vector(check_results,
+bins_results <- list(
                                   area_label = area_categories[1],
                                   topic_label = "number_of_bins",
                                   test = histogram_bins_tester(plot_object,n_of_layers,default_n_of_bins)[[1]], #true here means we are looking at an histogram
@@ -72,7 +68,7 @@ check_results <- tester_vector(check_results,
 
 ## we check here for the user wasting his time developing a graph for less than 20 points to show
 
-check_results <-  tester_vector(check_results,
+n_data_results <-  list(
                                 area_label      = area_categories[2],
                                 topic_label     = "sufficient_number_of_data",
                                 test            = too_few_data(plot_object, data_threshold), #TRUE here means you have enough data
@@ -80,7 +76,7 @@ check_results <-  tester_vector(check_results,
 
 ## check here for overplotting
 
-check_results <- tester_vector(check_results,
+overplotting_results <- list(
                                area_label = area_categories[2],
                                topic_label = "overplotting",
                                test       = cozy_plot(plot_object, n_of_layers)[[1]], # TRUE here means we are looking at a cozy plot
@@ -90,14 +86,14 @@ check_results <- tester_vector(check_results,
 
 ## check for the use of default theme and by that way the grey background
 
-check_results <- tester_vector(check_results,
+background_results <- list(
                                area_label = area_categories[3],
                                topic_label = "use_of_grey_background",
                                test = heavy_background(plot_object),
                                additional_data = list()) #TRUE here means we are looking at an heavy background, either being one set from the user or the default one ( if still grey)
 ## check for bar map with full, non white filling not mapped to any aes
 
-check_results <- tester_vector(check_results ,
+filled_barplot_results <- list(
                                area_label = area_categories[3],
                                topic_label = "filled_barplot",
                                test = filled_barplot(plot_object,n_of_layers),
@@ -108,19 +104,19 @@ check_results <- tester_vector(check_results ,
 
 ##check for presence of descriptive labels: title, subtitle and caption
 
-check_results <- tester_vector(check_results,
+title_results <- list(
                                area_label = area_categories[4],
                                topic_label = "presence_of_title",
                                test = labels_finder(plot_object,"title"), # TRUE here means we found the label
                                additional_data = list())
 
-check_results <- tester_vector(check_results,
+subtitle_results <- list(
                                area_label = area_categories[4],
                                topic_label = "presence_of_subtitle",
                                test = labels_finder(plot_object,"subtitle"), # TRUE here means we found the label
                                additional_data = list())
 
-check_results <- tester_vector(check_results,
+caption_results <- list(
                                area_label = area_categories[4],
                                topic_label = "presence_of_caption",
                                test = labels_finder(plot_object,"caption"), # TRUE here means we found the label
@@ -128,17 +124,30 @@ check_results <- tester_vector(check_results,
 
 ## loook for special characters within labels
 
-check_results <- tester_vector(check_results ,
+special_characters_results <- list(
                                area_label = area_categories[4],
                                topic_label = "special_characters_in_label",
                                test = labels_reader(plot_object)[1],
                                additional_data = labels_reader(plot_object)[2])
 ## a polished check : we try to understand if there are outliers in data and if they are in some way labeled within the plot
 
-check_results <- tester_vector(check_results,
+outliers_results <- list(
                                area_label = area_categories[4],
                                topic_label = "outliers_not_labelled",
                                test = outlier_labels(plot_object,n_of_layers,p_build),
                                additional_data = list())  #FALSE here means we have outliers not labelled
+
+check_results <- rbind(pie_results,
+                       layers_results,
+                       dimension_results,
+                       n_data_results,
+                       overplotting_results,
+                       background_results,
+                       filled_barplot_results,
+                       title_results,
+                       subtitle_results,
+                       caption_results,
+                       special_characters_results,
+                       outliers_results)
 
 return(check_results)}
