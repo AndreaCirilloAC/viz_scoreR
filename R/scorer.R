@@ -65,8 +65,8 @@ check_results <- tester_vector(check_results,
 check_results <- tester_vector(check_results,
                                   area_label = area_categories[1],
                                   topic_label = "number_of_bins",
-                                  test = histogram_bins_tester(plot_object,n_of_layers)[[1]], #true here means we are looking at an histogram
-                                  additional_data =histogram_bins_tester(plot_object,n_of_layers)[2:3] )
+                                  test = histogram_bins_tester(plot_object,n_of_layers,default_n_of_bins)[[1]], #true here means we are looking at an histogram
+                                  additional_data =histogram_bins_tester(plot_object,n_of_layers,default_n_of_bins)[2:3] )
 
 # DATA DENSITY
 
@@ -138,7 +138,7 @@ check_results <- tester_vector(check_results ,
 check_results <- tester_vector(check_results,
                                area_label = area_categories[4],
                                topic_label = "outliers_not_labelled",
-                               test = outlier_labels(plot_object),
+                               test = outlier_labels(plot_object,n_of_layers,p_build),
                                additional_data = list())  #FALSE here means we have outliers not labelled
 
 return(check_results)}

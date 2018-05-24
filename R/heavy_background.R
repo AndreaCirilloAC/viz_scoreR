@@ -13,10 +13,3 @@ heavy_background <- function(plot_object){
         FALSE}
   }
 }
-
-
-
-
-
-subset(background_fill, !(background_fill %in% c('B','N','T')))
-subset(c("A","B"), !("A" %in% c("B","D")))

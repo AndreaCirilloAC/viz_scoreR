@@ -1,6 +1,6 @@
 tester_vector <- function(check_results,area_label, topic_label, test, additional_data){
   
-  vector <-   list(area_label,
+  vector <-   c(area_label,
                    topic_label,
                    test,
                    additional_data)

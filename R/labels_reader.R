@@ -11,13 +11,3 @@ labels_reader <- function(plot_object){
   labels_with_special_characters <- labels_text_vector[special_characters_indexes]
   return(list(there_are_special_characters, labels_with_special_characters))
 }
-
-da_cercare <- c("A","B")
-
-dove_cercare <- c("ANDARE","TROVARE","CERCARE")
-
-da_cercare %in% dove_cercare
-
-labels_text_vector %in% special_character_vector
-
-charmatch(labels_text_vector,special_character_vector)
