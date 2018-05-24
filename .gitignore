@@ -28,6 +28,8 @@ vignettes/*.pdf
 
 making_testing_chart.R
 study_of_ggplot_internals.R
+test.R
+
 # knitr and R markdown default cache directories
 /*_cache/
 /cache/
