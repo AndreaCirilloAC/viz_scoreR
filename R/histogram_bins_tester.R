@@ -1,9 +1,7 @@
 histogram_bins_tester <- function(plot_object, n_of_layers, default_n_of_bins){
 # first of all I look for a GeomBar layer and a binwidth parameter. the occurence of 
   # both means we are "looking" at an histogram ( there is no separate geom)
-  bar_index <- match("GeomBar", geoms_lister(plot_object,n_of_layers))
-  bar_stat_params <- if(!is.na(bar_index )){plot_object$layers[[bar_index]]$stat_params %>% names()}
-  test_histogram <- !is.na(bar_index) & !is.na(match("binwidth",bar_stat_params))
+ test_histogram <- test_for_histagram(plot_object,n_of_layers)
 # if the plot actually seems to be an histogram I retrieve di x variable and compute on it
   ## the optimal number of bins based on the Freedman Diaconis rule
 
