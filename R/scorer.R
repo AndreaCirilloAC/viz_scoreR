@@ -67,6 +67,12 @@ bins_results <- list(
                                   topic_label = "number_of_bins",
                                   test = histogram_bins_tester(plot_object,n_of_layers,default_n_of_bins)[[1]], #true here means we are looking at an histogram
                                   additional_data =histogram_bins_tester(plot_object,n_of_layers,default_n_of_bins)[2:3] )
+flipped_bar_results <- list(
+  are_label = area_categories[1],
+  topic_label = "number_of_bins",
+  test = is_horizontal_barplot(plot_object,n_of_layers),# TRUE here means we are looking at an horizontal barplot, which is good
+  additional_data = list()
+)
 
 # DATA DENSITY
 
@@ -144,6 +150,8 @@ outliers_results <- list(
 check_results <- rbind(pie_results,
                        layers_results,
                        dimension_results,
+                       bins_results,
+                       flipped_bar_results,
                        n_data_results,
                        overplotting_results,
                        background_results,
