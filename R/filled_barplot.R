@@ -1,6 +1,6 @@
 filled_barplot <- function(plot_object,n_of_layers){
 
-is_geom_bar <- !is.na(match("GeomBar",geoms_lister(plot_object,n_of_layers)))
+is_geom_bar <- test_for_geom_bar(plot_object,n_of_layers)
     
 mappings_lister(plot_object,n_of_layers) %>% 
     select(aes) %>% 
