@@ -46,7 +46,7 @@ if(is.na(x_vector)){x_outliers_are_labelled <- NA}else{
    }}else{y_outliers_are_labelled <-  NA}}
 ###############     
      general_result <- if(is.na(x_outliers_are_labelled) &is.na(y_outliers_are_labelled)){
-       NA} else{if(prod(x_outliers_are_labelled,y_outliers_are_labelled, na.rm = TRUE)== TRUE){TRUE}else{FALSE}}
+       NA} else{if(prod(x_outliers_are_labelled,y_outliers_are_labelled, na.rm = TRUE)== TRUE){FALSE}else{TRUE}}
      
      return(general_result)
 }
