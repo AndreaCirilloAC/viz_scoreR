@@ -1,20 +1,24 @@
-scorer <- function(plot_object){
+scorer <- function(plot_object = NULL){
 
   # preliminary chech on arguments of the function and...
-      # ... existance of data ( may be redundant since ggplot already does it)
-      # ... 
-  
-  # if (is.null(geom))
-  #   stop("Attempted to create layer with no geom.", call. = FALSE)
-  
-  # create data frame to be used to store results of every rating module
-  
+
+  if(is.null(plot_object)){
+    stop("you must provide a valid ggplot2 object", call = FALSE)
+  }
   #constraints: 
-    # data must e provided within ggplot() call
-    # no overplotting check for histograms ( and generally where no y is provided)
+  # data must e provided within ggplot() call
+  if(is.null(plot_object$data[1])){
+    stop("current version only checks on data provided within ggplot call")
+  }
+  n_of_layers <-  plot_object$layers %>% length()
+  # no overplotting check for histograms ( and generally where no y is provided)  
+    if(test_for_histogram(plot_object,n_of_layers) == TRUE){
+      message("no check for overplotting on histogram is currently provided")
+    }
+
                  
 
-n_of_layers <-  plot_object$layers %>% length()
+
 
 area_categories <- c("readability of the plot",
                      "data density",
@@ -79,8 +83,8 @@ n_data_results <-  list(
 overplotting_results <- list(
                                area_label = area_categories[2],
                                topic_label = "overplotting",
-                               test       = cozy_plot(plot_object, n_of_layers)[[1]], # TRUE here means we are looking at a cozy plot
-                               additional_data = cozy_plot(plot_object, n_of_layers)[[2]])
+                               test       = cozy_plot(plot_object, n_of_layers,overplotting_floor)[[1]], # TRUE here means we are looking at a cozy plot
+                               additional_data = cozy_plot(plot_object, n_of_layers,overplotting_floor)[[2]])
 
 # DATA TO INK RATIO
 
@@ -88,7 +92,7 @@ overplotting_results <- list(
 
 background_results <- list(
                                area_label = area_categories[3],
-                               topic_label = "use_of_grey_background",
+                               topic_label = "use_of_heavy_background",
                                test = heavy_background(plot_object),
                                additional_data = list()) #TRUE here means we are looking at an heavy background, either being one set from the user or the default one ( if still grey)
 ## check for bar map with full, non white filling not mapped to any aes
@@ -127,7 +131,7 @@ caption_results <- list(
 special_characters_results <- list(
                                area_label = area_categories[4],
                                topic_label = "special_characters_in_label",
-                               test = labels_reader(plot_object)[1],
+                               test = labels_reader(plot_object)[[1]],
                                additional_data = labels_reader(plot_object)[2])
 ## a polished check : we try to understand if there are outliers in data and if they are in some way labeled within the plot
 
