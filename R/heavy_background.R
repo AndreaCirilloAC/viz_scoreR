@@ -8,8 +8,8 @@ heavy_background <- function(plot_object){
   if(length(as.character(plot_object$theme)) == 0 & default_is_grey>0){
     TRUE # the default theme is being used and this produces to a grey background
   }else{
-    if(!(background_fill %in% c(rgb(1,1,1),"FFFFFF", "white", "transparent"))==FALSE){ # if the background is not white or transparent we say it is heavy, tertium non datur
-      TRUE}else{
-        FALSE}
+    if(background_fill %in% c(rgb(1,1,1),"#FFFFFF", "white", "transparent")){ # if the background is not white or transparent we say it is heavy, tertium non datur
+      FALSE}else{
+        TRUE}
   }
 }
