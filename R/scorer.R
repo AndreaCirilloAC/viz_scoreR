@@ -25,17 +25,17 @@ area_categories <- c("readability of the plot",
                      "data to ink ratio",
                      "adequateness of labeling")
 
-default_n_of_bins  <- 30 # the default ggplot setting for the number of bins
-data_threshold     <- 20 # following tufte we set 20 as threshold to suggest the useR to avoid graphs
-overplotting_floor <-  2 # judgmental, based on experience
-
+default_n_of_bins     <- 30 # the default ggplot setting for the number of bins
+data_threshold        <- 20 # following tufte we set 20 as threshold to suggest the useR to avoid graphs
+overplotting_floor    <-  2 # judgmental, based on experience
+correlation_threshold <- .4  # judgmental, based on experience
 p_build <- ggplot_build(plot_object)
 
 # perform checks for each of the area and principle and assign a score
 
 
 
-# MEANINGFULNESS OF THE PLOT
+# READABILITY OF THE PLOT
 
 ## is a pie chart?
 
@@ -67,11 +67,23 @@ bins_results <- list(
                                   topic_label = "number_of_bins",
                                   test = histogram_bins_tester(plot_object,n_of_layers,default_n_of_bins)[[1]], #true here means we are looking at an histogram
                                   additional_data =histogram_bins_tester(plot_object,n_of_layers,default_n_of_bins)[2:3] )
+## let's check if we are looking at a bar plot and if yes we check if it is flipped or not
+
 flipped_bar_results <- list(
   are_label = area_categories[1],
   topic_label = "number_of_bins",
   test = is_horizontal_barplot(plot_object,n_of_layers),# TRUE here means we are looking at an horizontal barplot, which is good
   additional_data = list()
+)
+
+# we look here for correlation between x and y and for the presence of geom_smooth lines.
+
+geom_smooth_results <- list(
+                              area_label = area_categories[1],
+                              topic_label = "need_for_a_smooth",
+                              test = does_it_need_geom_smooth(plot_object,n_of_layers,correlation_threshold)[[1]],
+                              additional_data = does_it_need_geom_smooth(plot_object,n_of_layers,correlation_threshold)[[2]] 
+  
 )
 
 # DATA DENSITY
@@ -152,6 +164,7 @@ check_results <- rbind(pie_results,
                        dimension_results,
                        bins_results,
                        flipped_bar_results,
+                       geom_smooth_results,
                        n_data_results,
                        overplotting_results,
                        background_results,
