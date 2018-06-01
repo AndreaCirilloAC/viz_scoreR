@@ -16,7 +16,7 @@ if(is.na(x_vector)){x_outliers_are_labelled <- NA}else{
     # look for geom_text
     text_index <- match("GeomText",geoms_lister(plot_object, n_of_layers ))
     # if text is found I look at data to see if we are looking the outliers are labeled
-    if(is.na(text_index)){return(FALSE)}else if(text_index > 0){
+    if(is.na(text_index)){x_outliers_are_labelled <- FALSE}else if(text_index > 0){
       
       text_x <- p_build$data[[text_index]]$x
 
@@ -37,7 +37,7 @@ if(is.na(x_vector)){x_outliers_are_labelled <- NA}else{
   # look for geom_text
     text_index <- match("GeomText",geoms_lister(plot_object, n_of_layers ))
     # if text is found I look at data to see if we are looking the outliers are labeled
-   if(is.na(text_index)){return(FALSE)}else if(text_index > 0){
+   if(is.na(text_index)){y_outliers_are_labelled <- FALSE}else if(text_index > 0){
 
      text_y <- p_build$data[[text_index]]$y
 

@@ -71,7 +71,7 @@ bins_results <- list(
 
 flipped_bar_results <- list(
   are_label = area_categories[1],
-  topic_label = "number_of_bins",
+  topic_label = "flipped_barplot",
   test = is_horizontal_barplot(plot_object,n_of_layers),# TRUE here means we are looking at an horizontal barplot, which is good
   additional_data = list()
 )

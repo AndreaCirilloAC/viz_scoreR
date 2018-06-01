@@ -1,7 +1,7 @@
 histogram_bins_tester <- function(plot_object, n_of_layers, default_n_of_bins){
 # first of all I look for a GeomBar layer and a binwidth parameter. the occurence of 
   # both means we are "looking" at an histogram ( there is no separate geom)
- test_histogram <- test_for_histagram(plot_object,n_of_layers)
+ test_histogram <- test_for_histogram(plot_object,n_of_layers)
 # if the plot actually seems to be an histogram I retrieve di x variable and compute on it
   ## the optimal number of bins based on the Freedman Diaconis rule
 
@@ -18,9 +18,11 @@ if (is.null(actual_bw)){
 # after retrieving or computing the actual binwidth I compute the distance from the optimum
   # this will be taken into consideration when computing the final score.
 distance_from_optimum <- optimal_bw - actual_bw
+if(distance_from_optimum !=0){
 optimization_data <- list("test" = TRUE,"optimal_bw" = optimal_bw, "distance_from_optimum" = distance_from_optimum)
 return(optimization_data)  
-  }else{list(FALSE,FALSE,FALSE)}
+}else{return(list("test"=FALSE,"optimal_bw" =optimal_bw,"distance_from_optimum"=distance_from_optimum))}
+  }else{list(NA,NA,NA)}
   
 
 }
