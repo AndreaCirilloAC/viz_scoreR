@@ -2,8 +2,9 @@ aes_puller <- function(plot_object,n_of_layers, required_aes){
   
   aes_db     <- mappings_lister(plot_object , n_of_layers )
   variable_name   <- aes_db %>% filter(aes == required_aes) %>% select("variable") %>% pull()
+  col_index <- match(variable_name,aes_db$variable)
   if(length(variable_name)== 0 ){return(NA)}else{
-  variable_vector <- plot_object$data[,variable_name] 
+  variable_vector <- plot_object$data[,col_index] 
 
   return(variable_vector)}
 }
