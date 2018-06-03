@@ -5,7 +5,7 @@ scorer <- function(plot_object = NULL){
   if(is.null(plot_object)){
     stop("you must provide a valid ggplot2 object", call = FALSE)
   }
-  #constraints: 
+  #blocking conditions: 
   # data must e provided within ggplot() call
   if(is.null(plot_object$data[1])){
     stop("current version only checks on data provided within ggplot call")
@@ -15,7 +15,20 @@ scorer <- function(plot_object = NULL){
     if(test_for_histogram(plot_object,n_of_layers) == TRUE){
       message("no check for overplotting on histogram is currently provided")
     }
-
+  #limitations
+  
+  raw_x <- aes_puller(plot_object,n_of_layers, "x")
+  if(mode(raw_x) == "list"){x_vector <- raw_x[,1] %>% pull}else{x_vector <- raw_x}
+  raw_y <- aes_puller(plot_object,n_of_layers, "y")
+  if(mode(raw_y) == "list"){y_vector <- raw_y[,1] %>% pull}else{y_vector <- raw_y}
+  
+  not_handled <- c("factor","character")
+  available_and_not_handled <- intersect( x = c(unique(c(class(x_vector),class(y_vector)))),y = not_handled)
+  #check on variabe type
+  if(class(x_vector) %in% not_handled | class(y_vector) %in% not_handled){
+    message(paste("you have variables of class ",
+                  paste(unique(c(class(x_vector),class(y_vector))),collapse = " and "),
+                  ". Not all checks are implemented for ", paste(available_and_not_handled, collapse = " and ")))}
                  
 
 
@@ -27,7 +40,10 @@ area_categories <- c("readability of the plot",
 
 default_n_of_bins     <- 30 # the default ggplot setting for the number of bins
 data_threshold        <- 20 # following tufte we set 20 as threshold to suggest the useR to avoid graphs
-overplotting_floor    <-  2 # judgmental, based on experience
+overplotting_floor    <- if(!is.na(match("GeomLine",geoms_lister(plot_object ,n_of_layers)))){
+  16
+} else{3} # judgmental, based on experience
+   
 correlation_threshold <- .4  # judgmental, based on experience
 p_build <- ggplot_build(plot_object)
 
@@ -156,8 +172,8 @@ special_characters_results <- list(
 outliers_results <- list(
                                area_label = area_categories[4],
                                topic_label = "outliers_not_labelled",
-                               test = outlier_labels(plot_object,n_of_layers,p_build),
-                               additional_data = list())  #FALSE here means we have outliers not labelled
+                               test = outlier_labels(plot_object,n_of_layers,p_build),#TRUE here means we have outliers not labelled
+                               additional_data = list())  
 
 check_results <- rbind(pie_results,
                        layers_results,
