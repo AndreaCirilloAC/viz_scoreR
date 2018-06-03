@@ -5,8 +5,9 @@ does_it_need_geom_smooth <- function(plot_object, n_of_layers,correlation_thresh
   if(mode(raw_x) == "list"){x_vector <- raw_x[,1] %>% pull}else{x_vector <- raw_x}
   raw_y <- aes_puller(plot_object,n_of_layers, "y")
   if(mode(raw_y) == "list"){y_vector <- raw_y[,1] %>% pull}else{y_vector <- raw_y}
-  
-  if(!is.na(x_vector) & !is.na(y_vector)){
+  not_handled <- c("factor","character")
+  if(class(x_vector) %in% not_handled | class(y_vector) %in% not_handled){return(list(NA,NA,NA))
+    } else if(!is.na(x_vector) & !is.na(y_vector)){
     distance_correlation <- dcor(x_vector,y_vector)
   }else{distance_correlation <- 2}
   
