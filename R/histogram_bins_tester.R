@@ -8,6 +8,8 @@ histogram_bins_tester <- function(plot_object, n_of_layers, default_n_of_bins){
 if(test_histogram){
 variable_vector <- aes_puller(plot_object,n_of_layers,required_aes = "x")
 optimal_bw       <-  2 * (IQR(variable_vector) / length(variable_vector)^(1/3)) 
+bar_index <- match("GeomBar",geoms_lister(plot_object,n_of_layers))
+bar_stat_params <- plot_object[[bar_index]]$stat_params
 actual_bw_index  <- match("binwidth",bar_stat_params)
 actual_bw          <- plot_object$layers[[bar_index]]$stat_params[[actual_bw_index]] 
 
