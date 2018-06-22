@@ -7,7 +7,7 @@ outlier_labels <- function(plot_object,n_of_layers,p_build){
   if(mode(raw_y) == "list"){y_vector <- raw_y[,1] %>% pull}else{y_vector <- raw_y}
 
 ############ x
-if(is.na(x_vector)){x_outliers_are_labelled <- NA}else{  
+if(is.na(x_vector)|is.character(x_vector)){x_outliers_are_labelled <- NA}else{  
   # look for outliers
   x_outliers <- boxplot.stats(x_vector )$out
 
@@ -27,7 +27,7 @@ if(is.na(x_vector)){x_outliers_are_labelled <- NA}else{
 
 ########### y
 
-  if(is.na(y_vector)){y_outliers_are_labelled <- NA}else{  
+  if(is.na(y_vector)|is.character(x_vector)){y_outliers_are_labelled <- NA}else{  
   
   # look for outliers
 
