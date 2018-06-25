@@ -9,7 +9,7 @@ if (is.na(match("y",aes_db$aes))){ #if there is no y we are probably "looking" a
     raw_y <- aes_puller(plot_object,n_of_layers, "y")
     if(mode(raw_y) == "list"){y_vector <- raw_y[,1] %>% pull}else{y_vector <- raw_y}
 
-    not_handled <- c("factor","character")
+    not_handled <- c("factor","character","Date")
     #check on variabe type
     if(class(x_vector) %in% not_handled | class(y_vector) %in% not_handled){return(list(NA,NA))}else{
     
