@@ -65,7 +65,7 @@ pie_results <- list(           area_label = area_categories[1],
 layers_results <- list(
                                area_label = area_categories[1],
                                topic_label = "number_of_layers",
-                               test = n_of_layers>10,
+                               test = n_of_layers,# here the number of layers
                                additional_data = n_of_layers)
 
 ## is the user showing more dimensions than the plot would allow to?
@@ -81,7 +81,7 @@ dimension_results <- list(
 bins_results <- list(
                                   area_label = area_categories[1],
                                   topic_label = "number_of_bins",
-                                  test = histogram_bins_tester(plot_object,n_of_layers,default_n_of_bins)[[1]], #true here means we are looking at an histogram
+                                  test = histogram_bins_tester(plot_object,n_of_layers,default_n_of_bins)[[3]], #here the distance from the optimal number of bins
                                   additional_data =histogram_bins_tester(plot_object,n_of_layers,default_n_of_bins)[2:3] )
 ## let's check if we are looking at a bar plot and if yes we check if it is flipped or not
 
@@ -97,7 +97,7 @@ flipped_bar_results <- list(
 geom_smooth_results <- list(
                               area_label = area_categories[1],
                               topic_label = "need_for_a_smooth",
-                              test = does_it_need_geom_smooth(plot_object,n_of_layers,correlation_threshold)[[1]],
+                              test = does_it_need_geom_smooth(plot_object,n_of_layers,correlation_threshold)[[2]],#we place here the distance correlation to better apply machine learning technique
                               additional_data = does_it_need_geom_smooth(plot_object,n_of_layers,correlation_threshold)[[2]] 
   
 )
@@ -117,7 +117,7 @@ n_data_results <-  list(
 overplotting_results <- list(
                                area_label = area_categories[2],
                                topic_label = "overplotting",
-                               test       = cozy_plot(plot_object, n_of_layers,overplotting_floor)[[1]], # TRUE here means we are looking at a cozy plot
+                               test       = cozy_plot(plot_object, n_of_layers,overplotting_floor)[[2]], # the median distance here as a measure of overplotting
                                additional_data = cozy_plot(plot_object, n_of_layers,overplotting_floor)[[2]])
 
 # DATA TO INK RATIO
