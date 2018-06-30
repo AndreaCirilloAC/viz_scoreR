@@ -1,4 +1,6 @@
 score <- 0
 
-ggplot(data = diamonds, aes(carat, price))+
+diamonds %>% 
+  filter(cut == ("Premium"), color %in% c( "D","E") ) %>% 
+ggplot(aes(carat, price))+
   geom_point()->unclear_scatter

@@ -47,8 +47,25 @@ for (i in 1:length(plot_list)){
   
 }
 
+# restoring column type
 
-
+estimation_db %>% 
+  mutate(pie_chart = as.logical(pie_chart),
+         number_of_dimensions = as.numeric(number_of_dimensions),
+         number_of_layers = as.numeric(number_of_layers),
+         width_of_bins = as.numeric(width_of_bins),
+         flipped_barplot = as.logical(flipped_barplot),
+         need_for_a_smooth = as.numeric(need_for_a_smooth),
+         sufficient_number_of_data = as.logical(sufficient_number_of_data),
+         overplotting =as.numeric(overplotting),
+         use_of_heavy_background = as.logical(use_of_heavy_background),
+         filled_barplot= as.logical(filled_barplot),
+         presence_of_title = as.logical(presence_of_title),
+         presence_of_subtitle = as.logical(presence_of_subtitle),
+         presence_of_caption = as.logical(presence_of_caption),
+         special_characters_in_label = as.logical(special_characters_in_label),
+         outliers_not_labelled = as.logical(outliers_not_labelled),
+         good_plot = as.numeric(good_plot))-> estimation_db
 
 
 

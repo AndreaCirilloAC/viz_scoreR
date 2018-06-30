@@ -9,7 +9,7 @@ mtcars <- mtcars[order(mtcars$mpg_z), ]  # sort
 mtcars$car_name <- factor(mtcars$car_name, levels = mtcars$car_name)  # convert to factor to retain sorted order in plot.
 
 # Diverging Barcharts
-horizontal_Bar <- ggplot(mtcars, aes(x=car_name, y=mpg_z, label=mpg_z)) + 
+horizontal_bar <- ggplot(mtcars, aes(x=car_name, y=mpg_z, label=mpg_z)) + 
   geom_bar(stat='identity', aes(fill=mpg_type), width=.5)  +
   scale_fill_manual(name="Mileage", 
                     labels = c("Above Average", "Below Average"), 

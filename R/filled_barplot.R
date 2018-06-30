@@ -15,6 +15,6 @@ if(is_geom_bar &
    fill_aes_is_mapped == FALSE & 
    a_pie_chart==FALSE){ # we control for being a pie chart
   TRUE
-}else{if(is_geom_bar == FALSE){NA}
+}else{if(is_geom_bar == FALSE){FALSE}#NA}
   else{FALSE}}
 }

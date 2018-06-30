@@ -2,9 +2,9 @@ outlier_labels <- function(plot_object,n_of_layers,p_build){
   
   #draw_data
   raw_x <- aes_puller(plot_object,n_of_layers, "x")
-  if(mode(raw_x) == "list"){x_vector <- raw_x[,1] %>% pull}else{x_vector <- raw_x}
+  if(mode(raw_x) == "list"){x_vector <- raw_x[,1] %>% pull}else{x_vector <- as.numeric(raw_x)}
   raw_y <- aes_puller(plot_object,n_of_layers, "y")
-  if(mode(raw_y) == "list"){y_vector <- raw_y[,1] %>% pull}else{y_vector <- raw_y}
+  if(mode(raw_y) == "list"){y_vector <- raw_y[,1] %>% pull}else{y_vector <- as.numeric(raw_y)}
 
 ############ x
 if(is.na(x_vector)|is.character(x_vector)){x_outliers_are_labelled <- NA}else{  

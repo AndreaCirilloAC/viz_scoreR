@@ -18,9 +18,9 @@ scorer <- function(plot_object = NULL){
   #limitations
   
   raw_x <- aes_puller(plot_object,n_of_layers, "x")
-  if(mode(raw_x) == "list"){x_vector <- raw_x[,1] %>% pull}else{x_vector <- raw_x}
+  if(mode(raw_x) == "list"){x_vector <- raw_x[,1] %>% pull}else{x_vector <- as.numeric(raw_x)}
   raw_y <- aes_puller(plot_object,n_of_layers, "y")
-  if(mode(raw_y) == "list"){y_vector <- raw_y[,1] %>% pull}else{y_vector <- raw_y}
+  if(mode(raw_y) == "list"){y_vector <- raw_y[,1] %>% pull}else{y_vector <- as.numeric(raw_y)}
   
   not_handled <- c("factor","character")
   available_and_not_handled <- intersect( x = c(unique(c(class(x_vector),class(y_vector)))),y = not_handled)
@@ -57,7 +57,7 @@ p_build <- ggplot_build(plot_object)
 
 pie_results <- list(           area_label = area_categories[1],
                                topic_label = "pie_chart",
-                               test = is_pie_chart(plot_object, n_of_layers),
+                               test = as.logical(is_pie_chart(plot_object, n_of_layers)),
                                additional_data = list())
 
 ## are there too many layers?
