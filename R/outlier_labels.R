@@ -21,13 +21,13 @@ if(is.na(x_vector)|is.character(x_vector)){x_outliers_are_labelled <- NA}else{
       text_x <- p_build$data[[text_index]]$x
 
       
-      x_outliers_are_labelled <- if(length(x_outliers)==0){NA}else if(x_outliers%in% text_x){TRUE}else{FALSE}
+      x_outliers_are_labelled <- if(length(x_outliers)==0){FALSE}else if(x_outliers%in% text_x){TRUE}else{FALSE}
       
-      }}else{x_outliers_are_labelled <-  NA}}
+      }}else{x_outliers_are_labelled <-  FALSE}}
 
 ########### y
 
-  if(is.na(y_vector)|is.character(x_vector)){y_outliers_are_labelled <- NA}else{  
+  if(is.na(y_vector)|is.character(x_vector)){y_outliers_are_labelled <- FALSE}else{  
   
   # look for outliers
 
@@ -41,12 +41,12 @@ if(is.na(x_vector)|is.character(x_vector)){x_outliers_are_labelled <- NA}else{
 
      text_y <- p_build$data[[text_index]]$y
 
-     y_outliers_are_labelled <- if(length(y_outliers)==0){NA}else if(y_outliers%in% text_y){TRUE}else{FALSE}
+     y_outliers_are_labelled <- if(length(y_outliers)==0){FALSE}else if(y_outliers%in% text_y){TRUE}else{FALSE}
      
-   }}else{y_outliers_are_labelled <-  NA}}
+   }}else{y_outliers_are_labelled <-  FALSE}}
 ###############     
      general_result <- if(is.na(x_outliers_are_labelled) &is.na(y_outliers_are_labelled)){
-       NA} else{if(prod(x_outliers_are_labelled,y_outliers_are_labelled, na.rm = TRUE)== TRUE){FALSE}else{TRUE}}
+       FALSE} else{if(prod(x_outliers_are_labelled,y_outliers_are_labelled, na.rm = TRUE)== TRUE){FALSE}else{TRUE}}
      
      return(general_result)
 }

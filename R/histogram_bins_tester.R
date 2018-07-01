@@ -24,7 +24,7 @@ if(distance_from_optimum !=0){
 optimization_data <- list("test" = TRUE,"optimal_bw" = optimal_bw, "distance_from_optimum" = distance_from_optimum)
 return(optimization_data)  
 }else{return(list("test"=FALSE,"optimal_bw" =optimal_bw,"distance_from_optimum"=distance_from_optimum))}
-  }else{list(NA,NA,NA)}
+  }else{list(FALSE,NA,100)}
   
 
 }

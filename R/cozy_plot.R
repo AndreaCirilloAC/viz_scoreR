@@ -1,7 +1,7 @@
 cozy_plot <- function(plot_object, n_of_layers, overplotting_floor){
   aes_db <- mappings_lister(plot_object,n_of_layers)
 if (is.na(match("y",aes_db$aes))){ #if there is no y we are probably "looking" at an histogram, for which no overplotting check is provided
-  return(list(NA,NA))}else{
+  return(list(NA,100))}else{
   # we look here for overplotting. To do this we compute the median euclidean distance as a measure
     # of plot density
     raw_x <- aes_puller(plot_object,n_of_layers, "x")
@@ -11,7 +11,7 @@ if (is.na(match("y",aes_db$aes))){ #if there is no y we are probably "looking" a
 
     not_handled <- c("factor","character","Date")
     #check on variabe type
-    if(class(x_vector) %in% not_handled | class(y_vector) %in% not_handled){return(list(NA,NA))}else{
+    if(class(x_vector) %in% not_handled | class(y_vector) %in% not_handled){return(list(NA,100))}else{
     
   median_distance <- median(daisy(data.frame(x_vector,y_vector)))
   
