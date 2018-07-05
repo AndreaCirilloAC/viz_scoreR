@@ -1,4 +1,6 @@
 outlier_labels <- function(plot_object,n_of_layers,p_build){
+  #TRUE as final result means either you don't have outliers or the ones you have are labeled. the relevant result here is
+  # FALSE since it discriminates between a good and a bad plot.
   
   #draw_data
   raw_x <- aes_puller(plot_object,n_of_layers, "x")
@@ -21,13 +23,13 @@ if(is.na(x_vector)|is.character(x_vector)){x_outliers_are_labelled <- NA}else{
       text_x <- p_build$data[[text_index]]$x
 
       
-      x_outliers_are_labelled <- if(length(x_outliers)==0){FALSE}else if(x_outliers%in% text_x){TRUE}else{FALSE}
+      x_outliers_are_labelled <- if(length(x_outliers)==0){TRUE}else if(x_outliers%in% text_x){TRUE}else{FALSE}
       
-      }}else{x_outliers_are_labelled <-  FALSE}}
+      }}else{x_outliers_are_labelled <-  TRUE}}
 
 ########### y
 
-  if(is.na(y_vector)|is.character(x_vector)){y_outliers_are_labelled <- FALSE}else{  
+  if(is.na(y_vector)|is.character(x_vector)){y_outliers_are_labelled <- NA}else{  
   
   # look for outliers
 
@@ -41,12 +43,12 @@ if(is.na(x_vector)|is.character(x_vector)){x_outliers_are_labelled <- NA}else{
 
      text_y <- p_build$data[[text_index]]$y
 
-     y_outliers_are_labelled <- if(length(y_outliers)==0){FALSE}else if(y_outliers%in% text_y){TRUE}else{FALSE}
+     y_outliers_are_labelled <- if(length(y_outliers)==0){TRUE}else if(y_outliers%in% text_y){TRUE}else{FALSE}
      
-   }}else{y_outliers_are_labelled <-  FALSE}}
+   }}else{y_outliers_are_labelled <-  TRUE}}
 ###############     
-     general_result <- if(is.na(x_outliers_are_labelled) &is.na(y_outliers_are_labelled)){
-       FALSE} else{if(prod(x_outliers_are_labelled,y_outliers_are_labelled, na.rm = TRUE)== TRUE){FALSE}else{TRUE}}
+     general_result <- if(is.na(x_outliers_are_labelled) & is.na(y_outliers_are_labelled)){
+       TRUE} else{if(prod(x_outliers_are_labelled,y_outliers_are_labelled, na.rm = TRUE)== TRUE){TRUE}else{FALSE}}
      
      return(general_result)
 }
