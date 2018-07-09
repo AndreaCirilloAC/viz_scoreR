@@ -1,31 +1,31 @@
 library(caret)
-
-
-
-  createDataPartition(
+library(skimr)
+  
+createDataPartition(
   y = estimation_db$good_plot,
   ## the outcome data are needed
-  p = .75,
+  p = .80,
   ## The percentage of data in the
   ## training set
-  list = FALSE)-> train_subset
+  list = FALSE) -> train_subset
 
-training <- estimation_db[ inTrain,-1]
-testing  <- estimation_db[-inTrain,-1]
+training <- estimation_db[ train_subset,-1] #remove the plot name column
+testing  <- estimation_db[-train_subset,-1]
 
 nrow(training)
 
 nrow(testing)
 
-plsFit <- train(
-  good_plot ~ .,
+control <-  trainControl(interaction.depth = 9)
+
+gbm_fit <- train(  good_plot~.,
   data = training,
-  method = "pls",
-  ## Center and scale the predictors for the training
-  ## set and all future samples.
-  preProc = c("center", "scale")
+  method = "gbm",
+#  trControl = control,
+  verbose = FALSE
 )
 
-ggplot(plsFit)
+plot(gbm_fit)
 
-plsFit
+#http://topepo.github.io/caret/model-training-and-tuning.html#fitting-models-without-parameter-tuning
+

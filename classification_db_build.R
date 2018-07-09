@@ -10,7 +10,7 @@ for ( i in 1: length(scripts)){
 
 
 plot_list <- list.files("training_plots/")
-estimation_db <- data.frame()
+estimation_db_raw <- data.frame()
 colnames_vector <- c( 'plot_name',
                       'pie_chart',
                       'number_of_layers',
@@ -41,15 +41,15 @@ for (i in 1:length(plot_list)){
   result <- data.frame(scorer(plot))$test %>% as.character()
   row <- data.frame(t(c(plot_list[i],result,score)))
   colnames(row) <- colnames_vector
-  estimation_db <- rbind(estimation_db,row)
-  colnames(estimation_db) <- colnames_vector
+  estimation_db_raw <- rbind(estimation_db_raw,row)
+  colnames(estimation_db_raw) <- colnames_vector
   
   
 }
 
 # restoring column type
 
-estimation_db %>%
+estimation_db_raw %>%
   mutate(pie_chart = as.logical(pie_chart),
          number_of_dimensions = as.logical(number_of_dimensions),
          number_of_layers = as.numeric(as.character(number_of_layers)),
@@ -65,7 +65,7 @@ estimation_db %>%
          presence_of_caption = as.logical(presence_of_caption),
          special_characters_in_label = as.logical(special_characters_in_label),
          outliers_not_labelled = as.logical(outliers_not_labelled),
-         good_plot = as.numeric(good_plot))-> estimation_db_raw
+         good_plot = good_plot)-> estimation_db
 
 
 
