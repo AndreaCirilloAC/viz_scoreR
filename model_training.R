@@ -12,7 +12,7 @@ estimation_db  %>%
 createDataPartition(
   y = final_db$good_plot,
   ## the outcome data are needed
-  p = .95,
+  p = .90,
   ## The percentage of data in the
   ## training set
   list = FALSE) -> train_subset
@@ -28,9 +28,9 @@ nrow(testing)
 control <-  trainControl( classProbs = TRUE)
 
 gbmGrid <-  expand.grid(interaction.depth = c(1, 5, 9), 
-                        n.trees = (1:30)*50, 
-                        shrinkage = 0.1,
-                        n.minobsinnode = 20)
+                        n.trees = (1:10), 
+                        shrinkage = 0.09,
+                        n.minobsinnode = 5)
 
 gbm_fit <- train(  good_plot~.,
   data = training,
@@ -41,7 +41,12 @@ tuneGrid = gbmGrid)
 
 plot(gbm_fit)
 
+prediction <- predict(gbm_fit,newdata = testing[,-ncol(testing)])
+probabilities <- extractProb(list(gbm=gbm_fit),testX = testing[,-ncol(testing)],testY = testing$good_plot)
+probabilities_test <- probabilities %>% filter(dataType == "Test")
+confusionMatrix(probabilities_test$pred,probabilities_test$obs, positive = "good")
+
 #aggiungi questi:
-#  http://www.cookbook-r.com/Graphs/Plotting_distributions_(ggplot2)/ ca 16
+# http://www.cookbook-r.com/Graphs/Plotting_distributions_(ggplot2)/ ca 16
 #http://www.cookbook-r.com/Graphs/Plotting_means_and_error_bars_(ggplot2)/ 13
 #http://www.cookbook-r.com/Graphs/Scatterplots_(ggplot2)/ 11
