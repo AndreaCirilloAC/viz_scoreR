@@ -16,12 +16,17 @@ scorer <- function(plot_object = NULL){
       message("no check for overplotting on histogram is currently provided")
     }
   #limitations
+  aes_db <- mappings_lister(plot_object,n_of_layers)
   
   raw_x <- aes_puller(plot_object,n_of_layers, "x")
+  
   if(mode(raw_x) == "list"){x_vector <- raw_x[,1] %>% pull}else{x_vector <- as.numeric(raw_x)}
+
+  
+  if(!is.na(match("..density..",aes_db$variable))){y_vector <- c()}else{
   raw_y <- aes_puller(plot_object,n_of_layers, "y")
   if(mode(raw_y) == "list"){y_vector <- raw_y[,1] %>% pull}else{y_vector <- as.numeric(raw_y)}
-  
+  }
   not_handled <- c("factor","character")
   available_and_not_handled <- intersect( x = c(unique(c(class(x_vector),class(y_vector)))),y = not_handled)
   #check on variabe type
@@ -97,8 +102,8 @@ flipped_bar_results <- list(
 geom_smooth_results <- list(
                               area_label = area_categories[1],
                               topic_label = "need_for_a_smooth",
-                              test = does_it_need_geom_smooth(plot_object,n_of_layers,correlation_threshold)[[2]],#we place here the distance correlation to better apply machine learning technique
-                              additional_data = does_it_need_geom_smooth(plot_object,n_of_layers,correlation_threshold)[[2]] 
+                              test = does_it_need_geom_smooth(plot_object,n_of_layers,correlation_threshold,aes_db)[[2]],#we place here the distance correlation to better apply machine learning technique
+                              additional_data = does_it_need_geom_smooth(plot_object,n_of_layers,correlation_threshold,aes_db)[[2]] 
   
 )
 
@@ -117,8 +122,8 @@ n_data_results <-  list(
 overplotting_results <- list(
                                area_label = area_categories[2],
                                topic_label = "overplotting",
-                               test       = cozy_plot(plot_object, n_of_layers,overplotting_floor)[[2]], # the median distance here as a measure of overplotting
-                               additional_data = cozy_plot(plot_object, n_of_layers,overplotting_floor)[[2]])
+                               test       = cozy_plot(plot_object, n_of_layers,overplotting_floor,aes_db)[[2]], # the median distance here as a measure of overplotting
+                               additional_data = cozy_plot(plot_object, n_of_layers,overplotting_floor,aes_db)[[2]])
 
 # DATA TO INK RATIO
 
@@ -172,7 +177,7 @@ special_characters_results <- list(
 outliers_results <- list(
                                area_label = area_categories[4],
                                topic_label = "outliers_not_labelled",
-                               test = outlier_labels(plot_object,n_of_layers,p_build),#TRUE here means we have outliers not labelled
+                               test = outlier_labels(plot_object,n_of_layers,p_build,aes_db),#TRUE here means we have outliers not labelled
                                additional_data = list())  
 
 check_results <- rbind(pie_results,
