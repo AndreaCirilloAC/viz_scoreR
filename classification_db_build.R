@@ -2,7 +2,7 @@ library(cluster) # function daisy
 library(dplyr)
 library(ggplot2)
 library(energy)
-## file sourcing to obtain function in the global environment and the final scorer function
+## file sourcing to obtain function in the global environment and the final metadata_reader function
 scripts <- (paste("R/",list.files("R"),sep =""))
 for ( i in 1: length(scripts)){
   source(scripts[i],local = TRUE)
@@ -30,7 +30,7 @@ colnames_vector <- c( 'plot_name',
                       'good_plot')
 
 # for each script within the folder we run the code
-# run scorer function on the plot
+# run metadata_reader function on the plot
 # use the score variable to record if it is a good or poor plot
 
 for (i in 1:length(plot_list)){
@@ -38,7 +38,7 @@ for (i in 1:length(plot_list)){
   source(paste0("training_plots/",plot_list[i]),local = TRUE)
   plot_name <- sub(".R","",plot_list[i])
   plot <- get(plot_name)
-  result <- data.frame(scorer(plot))$test %>% as.character()
+  result <- data.frame(metadata_reader(plot))$test %>% as.character()
   row <- data.frame(t(c(plot_list[i],result,score)))
   colnames(row) <- colnames_vector
   estimation_db_raw <- rbind(estimation_db_raw,row)

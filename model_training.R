@@ -46,6 +46,8 @@ probabilities <- extractProb(list(gbm=gbm_fit),testX = testing[,-ncol(testing)],
 probabilities_test <- probabilities %>% filter(dataType == "Test")
 confusionMatrix(probabilities_test$pred,probabilities_test$obs, positive = "good")
 
+save(gbm_fit, file = "obj/model_fit.Rdata")
+
 #aggiungi questi:
 # http://www.cookbook-r.com/Graphs/Plotting_distributions_(ggplot2)/ ca 16
 #http://www.cookbook-r.com/Graphs/Plotting_means_and_error_bars_(ggplot2)/ 13
