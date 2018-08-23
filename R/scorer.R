@@ -49,8 +49,8 @@ scorer <- function(plot_metadata = NULL){
              special_characters_in_label = as.logical(special_characters_in_label),
              outliers_not_labelled = as.logical(outliers_not_labelled))-> scoring_db
     
-    #prediction <- predict(gbm_fit,newdata = scoring_db, probability = TRUE)
-    probabilities <- extractProb(list(gbm=gbm_fit),unkX = scoring_db )
+    predict(gbm_fit,newdata = scoring_db, probability = TRUE)
+    probabilities <- extractProb(list(gbm = gbm_fit),unkX = scoring_db )
     #return as output the probability of being a good plot, i.e. the final score 
     
     return(probabilities$good)
