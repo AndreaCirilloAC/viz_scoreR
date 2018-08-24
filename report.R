@@ -8,18 +8,27 @@
 #'    
 #' ---
 
----
+#' ---
   
 #+ r, echo=FALSE
 htmltools::includeCSS("blinking.css")
 
----
+
   
 #' <div class="centered">
 #' your plot looks 
 {{judgment}}  
 {{htmltools::includeHTML("test.html")}} 
 #' </div>
+#' 
 
-
+#' ---
+#' ---
   
+#' <div class="centered">
+#' let me tell you a bit more about this
+{{htmltools::includeHTML("test.html")}} 
+#' </div>
+#'
+
+#' ---
