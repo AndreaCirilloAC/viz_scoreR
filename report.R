@@ -20,15 +20,24 @@ htmltools::includeCSS("blinking.css")
 {{judgment}}  
 {{htmltools::includeHTML("test.html")}} 
 #' </div>
-#' 
+#'
 
 #' ---
-#' ---
-  
-#' <div class="centered">
+#' 
+#' #' <div class="centered">
 #' let me tell you a bit more about this
 {{htmltools::includeHTML("test.html")}} 
 #' </div>
 #'
 
 #' ---
+#' 
+#' #' <div class="centered">
+#' as far as I can see the data viz area in which your plot scored worst was
+{{worst_area}}  
+{{htmltools::includeHTML("test.html")}} 
+#' </div>
+#'
+
+#' ---
+
