@@ -4,6 +4,7 @@ library(ggplot2)
 library(energy)
 library(caret)
 library(tidyr)
+library(knitr)
 ## file sourcing to obtain function in the global environment and the final metadata_reader function
 scripts <- (paste("R/",list.files("R"),sep =""))
 for ( i in 1: length(scripts)){

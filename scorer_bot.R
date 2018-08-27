@@ -31,13 +31,17 @@ scorer_bot <- function(plot_object = NULL){
     count() %>% 
     spread(key = ispositive, value = n) %>% 
     mutate(positive_ratio = `TRUE`/sum(`TRUE`,`FALSE`, na.rm = TRUE)) %>% 
+    rename(passed = `TRUE`,failed = `FALSE`) %>% 
+    mutate(total = sum(passed , failed,na.rm = TRUE)) -> positive_ratio_db
+  
+  positive_ratio_db %>% 
     filter(positive_ratio == min(.$positive_ratio)) %>% 
     select(area_label) %>% 
     pull() %>% 
     as.character() -> worst_area # the worst area was the one in which the plot obtained ther worst positive rate,
   #i.e. number of positive results in test given the overall number of test for that area.
-
-  # we then select the specific test showing problems, so to give specific advice for each of this elements.
+ 
+  # we then select each specific test showing problems, so to give specific advice for each of this elements.
   
   # 
   

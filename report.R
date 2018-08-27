@@ -5,6 +5,7 @@
 #'   slidy_presentation:
 #'   font_adjustment: +10
 #'   footer: "Copyright (c) 2018, Andrea Cirillo"
+#'   incremental: true
 #'    
 #' ---
 
@@ -33,8 +34,19 @@ htmltools::includeCSS("blinking.css")
 #' ---
 #' 
 #' #' <div class="centered">
-#' as far as I can see the data viz area in which your plot scored worst was
+#' as far as I can see the data viz area in which your plot scored worst was the
 {{worst_area}}  
+{{htmltools::includeHTML("test.html")}} 
+#' </div>
+#'
+
+#' ---
+#' 
+#' #' <div class="centered">
+#' here it is a summary of your plot performance for each area. 
+{{kable(positive_ratio_db)}}  
+#' you can look into my documentation to learn which test were performed and how the scores were computed.
+#' you can also find more info about all of this here: andreacirillo.com/viz_bot 
 {{htmltools::includeHTML("test.html")}} 
 #' </div>
 #'
