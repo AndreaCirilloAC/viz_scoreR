@@ -42,8 +42,23 @@ scorer_bot <- function(plot_object = NULL){
   #i.e. number of positive results in test given the overall number of test for that area.
  
   # we then select each specific test showing problems, so to give specific advice for each of this elements.
+  plot_metadata %>% 
+    select(topic_label,ispositive) %>% 
+    filter(ispositive == FALSE) -> errors_db
   
+  # merge errors_db with a db storing a suggestion for each possible error
+  advices_db <- read.csv("plot_advices.csv", sep = ";", stringsAsFactors = FALSE)
+  
+  errors_db %>% 
+    left_join(.,advices_db,by ="topic_label")-> teaching_db
+print(teaching_db)  
+  # n_of_errors <- nrow(errors_db)
   # 
+  # for (i in 1:n_of_errors){
+  #   add_chunk
+  # }
+  
+  
   
   rmarkdown::render("report.R")
   system("open report.html")

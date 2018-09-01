@@ -52,4 +52,21 @@ htmltools::includeCSS("blinking.css")
 #'
 
 #' ---
+#' 
+#' <div class="centered">
+#' is now time to learn how to make your plot more effective applying dataviz principles
+{{htmltools::includeHTML("test.html")}} 
+#' </div>
+#'
 
+#' ---
+#' 
+#' <div class="centered">
+#' I will  give you an advice on how to fix your plot for each test failed
+{{htmltools::includeHTML("test.html")}} 
+#' </div>
+#'
+
+#' ---
+#' 
+#' <div class="centered">

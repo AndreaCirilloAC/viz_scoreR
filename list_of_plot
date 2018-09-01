@@ -1,0 +1,6 @@
+         plot_name pie_chart number_of_layers number_of_dimensions width_of_bins flipped_barplot
+2        anonymous.R     
+43      regression.R    
+46         so_what.R    
+56 unclear_scatter.R   
+63      vline_plot.R    
