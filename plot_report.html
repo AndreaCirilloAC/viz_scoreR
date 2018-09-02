@@ -17,7 +17,7 @@
   <p class="author">
 your buddy viz score bot
   </p>
-  <p class="date">Sun Sep 2 22:33:53 2018</p>
+  <p class="date">Sun Sep 2 23:00:20 2018</p>
 </div>
 <div class="slide section level6">
 
@@ -120,28 +120,28 @@ your buddy viz score bot
 <td align="left">adequateness of labeling</td>
 <td align="right">4</td>
 <td align="right">1</td>
-<td align="right">0.2000000</td>
+<td align="right">0.2</td>
 <td align="right">5</td>
 </tr>
 <tr class="even">
 <td align="left">data density</td>
-<td align="right">NA</td>
-<td align="right">2</td>
-<td align="right">1.0000000</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0.5</td>
 <td align="right">2</td>
 </tr>
 <tr class="odd">
 <td align="left">data to ink ratio</td>
 <td align="right">1</td>
 <td align="right">1</td>
-<td align="right">0.5000000</td>
+<td align="right">0.5</td>
 <td align="right">2</td>
 </tr>
 <tr class="even">
 <td align="left">readability of the plot</td>
-<td align="right">2</td>
-<td align="right">4</td>
-<td align="right">0.6666667</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">0.5</td>
 <td align="right">6</td>
 </tr>
 </tbody>
@@ -164,43 +164,64 @@ your buddy viz score bot
 <div class="slide section level6">
 
 <div class="centered">
-<p>number_of_bins <span class="blinking-cursor">_</span></p>
+<p>pie_chart</p>
+<p>pie charts are rarely the better way to display data. why don’t you simply look for a well defined bar chart? further reference: <a href="http://www.businessinsider.com/pie-charts-are-the-worst-2013-6?IR=T" class="uri">http://www.businessinsider.com/pie-charts-are-the-worst-2013-6?IR=T</a>  <span class="blinking-cursor">_</span></p>
 </div>
 </div>
 <div class="slide section level6">
 
 <div class="centered">
-<p>flipped_barplot <span class="blinking-cursor">_</span></p>
+<p>number_of_bins</p>
+<p>  you histogram is not the best possibile visualisation of your data. I have found that setting bins to XX produces a better visualisation of data structure. <span class="blinking-cursor">_</span></p>
 </div>
 </div>
 <div class="slide section level6">
 
 <div class="centered">
-<p>use_of_heavy_background <span class="blinking-cursor">_</span></p>
+<p>flipped_barplot</p>
+<p>humans are better at comparing lengths when showed horizontally. Unless you are showing time-related information (i.e. time series over the x axis) try to flip your bars adding coord_flip() to your plot specification. <span class="blinking-cursor">_</span></p>
 </div>
 </div>
 <div class="slide section level6">
 
 <div class="centered">
-<p>presence_of_title <span class="blinking-cursor">_</span></p>
+<p>sufficient_number_of_data</p>
+<p>your plot shows less then 20 data points. You would obtain a better result employing a table. Reference: Tufte … <span class="blinking-cursor">_</span></p>
 </div>
 </div>
 <div class="slide section level6">
 
 <div class="centered">
-<p>presence_of_subtitle <span class="blinking-cursor">_</span></p>
+<p>use_of_heavy_background</p>
+<p>you are employing the default ggplot theme. while it is generally fit for its purpose, you should consider removing that grey background, which lowers your data to ink ratio <span class="blinking-cursor">_</span></p>
 </div>
 </div>
 <div class="slide section level6">
 
 <div class="centered">
-<p>presence_of_caption <span class="blinking-cursor">_</span></p>
+<p>presence_of_title</p>
+<p>your plot is missing a title. this make harder for your reader to understand its content. Try to add a plot employing labs(title = “your title”) <span class="blinking-cursor">_</span></p>
 </div>
 </div>
 <div class="slide section level6">
 
 <div class="centered">
-<p>outliers_not_labelled <span class="blinking-cursor">_</span></p>
+<p>presence_of_subtitle</p>
+<p>your plot is missing a subtitle. subtitle are effective in providing additional relevant info about metrics and data showed in your plot. Try to add a plot employing labs(subtitle = “your subtitle”) <span class="blinking-cursor">_</span></p>
+</div>
+</div>
+<div class="slide section level6">
+
+<div class="centered">
+<p>presence_of_caption</p>
+<p>your plot is missing a caption. While not mandatory, caption are used to provide info about sources and reference period of your plot. This is crucial to increase the level of graphical integrity of your plot. Try to add a plot employing labs(caption = “your subtitle”) <span class="blinking-cursor">_</span></p>
+</div>
+</div>
+<div class="slide section level6">
+
+<div class="centered">
+<p>outliers_not_labelled</p>
+<p>I have found some outliers in your data, and they do not seem to be explicitly labeled in your plot. To increase the level of meaningfulness you should consider labelling them.  <span class="blinking-cursor">_</span></p>
 </div>
 </div>
 <div class="slide section level6">

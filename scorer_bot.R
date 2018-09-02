@@ -50,19 +50,34 @@ scorer_bot <- function(plot_object = NULL){
   advices_db <- read.csv("plot_advices.csv", sep = ";", stringsAsFactors = FALSE)
   
   errors_db %>% 
-    left_join(.,advices_db,by ="topic_label")-> teaching_db
-print(teaching_db)  
-  # n_of_errors <- nrow(errors_db)
-  # 
-  # for (i in 1:n_of_errors){
-  #   add_chunk
-  # }
+    left_join(.,advices_db,by = "topic_label") -> teaching_db
+
+n_of_errors <- nrow(errors_db)
+ 
+file.copy("report.R", to = "plot_report.R",overwrite = TRUE)
+
+for (i in 1:n_of_errors){
+
+
+  write("#' <div class='centered'>", file = "plot_report.R", append = TRUE)
+  write(paste0("#' ",teaching_db[i,1]), file = "plot_report.R", append = TRUE)
+  write("#'", file = "plot_report.R", append = TRUE)
+  write(paste0("#' ",teaching_db[i,3]), file = "plot_report.R", append = TRUE)
+  write("{{htmltools::includeHTML('test.html')}} ", file = "plot_report.R", append = TRUE)
+  write("#' </div>", file = "plot_report.R", append = TRUE)
+  write("#'", file = "plot_report.R", append = TRUE)
+  write(" ", file = "plot_report.R", append = TRUE)
+  write( "#' ---",file = "plot_report.R", append = TRUE)
+  write("#'", file = "plot_report.R", append = TRUE)
   
-  
-  
-  rmarkdown::render("report.R")
-  system("open report.html")
+}
+
+
+
+
+  rmarkdown::render("plot_report.R")
+  system("open plot_report.html")
     
 }
 
-scorer_bot(flowers)
+ scorer_bot(a_good_theme_a_bad_pie)
