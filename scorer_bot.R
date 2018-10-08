@@ -5,6 +5,7 @@ scorer_bot <- function(plot_object = NULL){
                              test        = unlist(plot_metadata_raw$test),
                              ispositive = unlist(plot_metadata_raw$ispositive))
   score <- scorer(plot_metadata)
+ 
   score_map <- data.frame(lower = c(0,0.11,0.41,0.71),
                           upper = c(0.10,0.40,0.70,1),
                           judgment = c("poorly", "improvable","good!", "great!"))
@@ -41,6 +42,8 @@ scorer_bot <- function(plot_object = NULL){
     as.character() -> worst_area # the worst area was the one in which the plot obtained ther worst positive rate,
   #i.e. number of positive results in test given the overall number of test for that area.
  
+  print(worst_area)
+  
   # we then select each specific test showing problems, so to give specific advice for each of this elements.
   plot_metadata %>% 
     select(topic_label,ispositive) %>% 
@@ -54,30 +57,22 @@ scorer_bot <- function(plot_object = NULL){
 
 n_of_errors <- nrow(errors_db)
  
-file.copy("report.R", to = "plot_report.R",overwrite = TRUE)
-
+file.copy("report.Rmd", to = "plot_report.Rmd",overwrite = TRUE)
+write("---", file = "plot_report.Rmd", append = TRUE)
 for (i in 1:n_of_errors){
 
 
-  write("#' <div class='centered'>", file = "plot_report.R", append = TRUE)
-  write(paste0("#' ",teaching_db[i,1]), file = "plot_report.R", append = TRUE)
-  write("#'", file = "plot_report.R", append = TRUE)
-  write(paste0("#' ",teaching_db[i,3]), file = "plot_report.R", append = TRUE)
-  write("{{htmltools::includeHTML('test.html')}} ", file = "plot_report.R", append = TRUE)
-  write("#' </div>", file = "plot_report.R", append = TRUE)
-  write("#'", file = "plot_report.R", append = TRUE)
-  write(" ", file = "plot_report.R", append = TRUE)
-  write( "#' ---",file = "plot_report.R", append = TRUE)
-  write("#'", file = "plot_report.R", append = TRUE)
-  
+  write("---", file = "plot_report.Rmd", append = TRUE)
+  write(" ", file = "plot_report.Rmd", append = TRUE)
+  write("  " , file = "plot_report.Rmd", append = TRUE)
+  write(paste("**",teaching_db[i,1],"**"), file = "plot_report.Rmd", append = TRUE)
+  write("  " , file = "plot_report.Rmd", append = TRUE)
+  write(teaching_db[i,3], file = "plot_report.Rmd", append = TRUE)
+  # write("  " , file = "plot_report.Rmd", append = TRUE)
+
 }
 
-
-
-
-  rmarkdown::render("plot_report.R")
+  rmarkdown::render("plot_report.Rmd")
   system("open plot_report.html")
-    
 }
 
- scorer_bot(a_good_theme_a_bad_pie)

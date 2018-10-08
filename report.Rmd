@@ -1,0 +1,43 @@
+---
+title: "Your Plot Meta Analysis"
+output:
+  revealjs::revealjs_presentation:
+    center: true
+    transition: fade
+    
+---
+
+---
+
+I have looked into your plot and evaluated it against dataviz best practices and theoretical frameworks.
+
+---
+
+- your plot looks  `r judgment`
+ 
+---
+
+let me tell you a bit more about this
+
+---
+
+as far as I can see the data viz area in which your plot scored worst was the `r worst_area`
+
+---
+
+is now time to learn how to make your plot more effective applying dataviz principles
+
+here it is a summary of your plot performance for each area. 
+
+`r kable(positive_ratio_db)`
+
+you can look into my documentation to learn which test were performed and how the scores were computed.
+you can also find more info about all of this here: andreacirillo.com/viz_bot
+
+---
+
+ is now time to learn how to make your plot more effective applying dataviz principles
+
+---
+
+ I will give you an advice on how to fix your plot for each test failed.

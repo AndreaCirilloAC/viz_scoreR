@@ -6,7 +6,7 @@
   -ms-animation: 1s blink step-end infinite;
   -o-animation: 1s blink step-end infinite;
   animation: 1s blink step-end infinite;
-  font-size: 150%
+  font-size: 100%
 }
 
 @keyframes "blink" {
@@ -55,7 +55,6 @@
 }
 
 .centered{
-          margin:50px 0; 
+  margin:50px 0; 
     padding:0;
-    text-align:center;
-    font-size: 200%;}
+    font-size: 100%;}
