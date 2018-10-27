@@ -4,40 +4,44 @@ output:
   revealjs::revealjs_presentation:
     center: true
     transition: fade
+    css: blinking.css
     
 ---
 
----
-
-I have looked into your plot and evaluated it against dataviz best practices and theoretical frameworks.
+Hi! I am you dataviz bot advisor<span class=blinking-cursor>_</span>
 
 ---
 
-- your plot looks  `r judgment`
+I have looked into your plot and evaluated it against dataviz best practices and theoretical frameworks<span class=blinking-cursor>_</span>
+
+---
+
+your plot looks  __`r judgment`__<span class=blinking-cursor>_</span>
  
 ---
 
-let me tell you a bit more about this
+let me tell you a bit more about this<span class=blinking-cursor>_</span>
 
 ---
 
-as far as I can see the data viz area in which your plot scored worst was the `r worst_area`
+as far as I can see the data viz area in which your plot scored worst was the __`r worst_area`__<span class=blinking-cursor>_</span>
 
 ---
 
-is now time to learn how to make your plot more effective applying dataviz principles
+is now time to learn how to make your plot more effective applying dataviz principles.
 
 here it is a summary of your plot performance for each area. 
 
-`r kable(positive_ratio_db)`
+`r kable(positive_ratio_show)`
 
 you can look into my documentation to learn which test were performed and how the scores were computed.
-you can also find more info about all of this here: andreacirillo.com/viz_bot
+<small>you can also find more info about all on my <a hrefandreacirillo.com/viz_bot>official webpage</a></small>
 
 ---
 
- is now time to learn how to make your plot more effective applying dataviz principles
+is now time to learn how to make your plot more effective applying dataviz principles<span class=blinking-cursor>_</span>
 
 ---
 
- I will give you an advice on how to fix your plot for each test failed.
+I will give you an advice on how to fix your plot for each test failed<span class=blinking-cursor>_</span>
+ 

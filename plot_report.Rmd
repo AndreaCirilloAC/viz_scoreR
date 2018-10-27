@@ -4,83 +4,87 @@ output:
   revealjs::revealjs_presentation:
     center: true
     transition: fade
+    css: blinking.css
     
 ---
 
----
-
-I have looked into your plot and evaluated it against dataviz best practices and theoretical frameworks.
+Hi! I am you dataviz bot advisor<span class=blinking-cursor>_</span>
 
 ---
 
-- your plot looks  `r judgment`
+I have looked into your plot and evaluated it against dataviz best practices and theoretical frameworks<span class=blinking-cursor>_</span>
+
+---
+
+your plot looks  __`r judgment`__<span class=blinking-cursor>_</span>
  
 ---
 
-let me tell you a bit more about this
+let me tell you a bit more about this<span class=blinking-cursor>_</span>
 
 ---
 
-as far as I can see the data viz area in which your plot scored worst was the `r worst_area`
+as far as I can see the data viz area in which your plot scored worst was the __`r worst_area`__<span class=blinking-cursor>_</span>
 
 ---
 
-is now time to learn how to make your plot more effective applying dataviz principles
+is now time to learn how to make your plot more effective applying dataviz principles.
 
 here it is a summary of your plot performance for each area. 
 
-`r kable(positive_ratio_db)`
+`r kable(positive_ratio_show)`
 
 you can look into my documentation to learn which test were performed and how the scores were computed.
-you can also find more info about all of this here: andreacirillo.com/viz_bot
+<small>you can also find more info about all on my <a hrefandreacirillo.com/viz_bot>official webpage</a></small>
 
 ---
 
- is now time to learn how to make your plot more effective applying dataviz principles
+is now time to learn how to make your plot more effective applying dataviz principles<span class=blinking-cursor>_</span>
 
 ---
 
- I will give you an advice on how to fix your plot for each test failed.
----
+I will give you an advice on how to fix your plot for each test failed<span class=blinking-cursor>_</span>
+ 
+ 
 ---
  
+__try to pick a better width for your bins__
   
-** number_of_bins **
+the histogram you specified is not the best possibile visualisation of your data. I have found that setting bins to a different width produces a better visualisation of your data structure. Look for the  <a href='https://en.wikipedia.org/wiki/Freedman-Diaconis_rule'>Freedman-Diaconis rule</a>  to understand how to set the optimal width of your bins<span class=blinking-cursor>_</span>
   
-  you histogram is not the best possibile visualisation of your data. I have found that setting bins to XX produces a better visualisation of data structure.
 ---
  
+__let's flip your bars down!__
   
-** flipped_barplot **
+humans are better able at comparing lengths when showed horizontally. Unless you are showing time-related information (i.e. time series over the x axis) try to flip your bars adding <code>coord_flip()</code> to your plot specification<span class=blinking-cursor>_</span>
   
- humans are better at comparing lengths when showed horizontally. Unless you are showing time-related information (i.e. time series over the x axis) try to flip your bars adding coord_flip() to your plot specification.
 ---
  
+__try to remove the grey background__
   
-** use_of_heavy_background **
+you are employing the default ggplot theme. while it is generally fit for its purpose you should consider removing that grey background, which lowers your data to ink ratio. Please find more info about data ink ratio on the <a href='https://infovis-wiki.net/wiki/Data-Ink_Ratio'>official info vis wiki page</a><span class=blinking-cursor>_</span>
   
- you are employing the default ggplot theme. while it is generally fit for its purpose, you should consider removing that grey background, which lowers your data to ink ratio
 ---
  
+__what is a book without a title?__
   
-** presence_of_title **
+your plot is missing a title. this makes harder for your reader to understand its content. try to add a title employing <code>labs(title = 'relevant title')</code><span class=blinking-cursor>_</span>
   
- your plot is missing a title. this make harder for your reader to understand its content. Try to add a plot employing labs(title = “your title”)
 ---
  
+__let us understand your plot better with a subtitle__
   
-** presence_of_subtitle **
+ your plot is missing a subtitle. Subtitle are effective in providing additional relevant info about metrics and data showed in your plot.Try to add a plot employing labs(subtitle  = 'your subtitle')<span class=blinking-cursor>_</span>
   
- your plot is missing a subtitle. subtitle are effective in providing additional relevant info about metrics and data showed in your plot. Try to add a plot employing labs(subtitle = “your subtitle”)
 ---
  
+__use caption to add integrity to your plot__
   
-** presence_of_caption **
+your plot is missing a caption. While not mandatories , captions are used to provide info about sources and reference period of your plot. This is crucial to increase the level of graphical integrity of your plot<span class=blinking-cursor>_</span>
   
- your plot is missing a caption. While not mandatory, caption are used to provide info about sources and reference period of your plot. This is crucial to increase the level of graphical integrity of your plot. Try to add a plot employing labs(caption = “your subtitle”)
 ---
  
+__mark that outliers__
   
-** outliers_not_labelled **
+I have found some outliers in your data  ,and they do not seem to be explicitly labeled in your plot.To increase the level of meaningfulness you should consider labelling them<span class=blinking-cursor>_</span>
   
- I have found some outliers in your data, and they do not seem to be explicitly labeled in your plot. To increase the level of meaningfulness you should consider labelling them. 

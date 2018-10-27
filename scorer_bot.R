@@ -31,9 +31,15 @@ scorer_bot <- function(plot_object = NULL){
     group_by(area_label,ispositive) %>% 
     count() %>% 
     spread(key = ispositive, value = n) %>% 
-    mutate(positive_ratio = `TRUE`/sum(`TRUE`,`FALSE`, na.rm = TRUE)) %>% 
+    mutate(positive_ratio = `TRUE`/sum(`TRUE`,`FALSE`, na.rm = TRUE)) %>%
+    mutate(area_ratio     =round(positive_ratio,2)) %>% 
     rename(passed = `TRUE`,failed = `FALSE`) %>% 
     mutate(total = sum(passed , failed,na.rm = TRUE)) -> positive_ratio_db
+  
+  positive_ratio_db %>% 
+    select(area_label,failed,passed,area_ratio) -> positive_ratio_show
+  
+  positive_ratio_show[is.na(positive_ratio_show)] <- 0 
   
   positive_ratio_db %>% 
     filter(positive_ratio == min(.$positive_ratio)) %>% 
@@ -41,8 +47,6 @@ scorer_bot <- function(plot_object = NULL){
     pull() %>% 
     as.character() -> worst_area # the worst area was the one in which the plot obtained ther worst positive rate,
   #i.e. number of positive results in test given the overall number of test for that area.
- 
-  print(worst_area)
   
   # we then select each specific test showing problems, so to give specific advice for each of this elements.
   plot_metadata %>% 
@@ -56,23 +60,22 @@ scorer_bot <- function(plot_object = NULL){
     left_join(.,advices_db,by = "topic_label") -> teaching_db
 
 n_of_errors <- nrow(errors_db)
- 
+
 file.copy("report.Rmd", to = "plot_report.Rmd",overwrite = TRUE)
-write("---", file = "plot_report.Rmd", append = TRUE)
+write(" ", file = "plot_report.Rmd", append = TRUE)
 for (i in 1:n_of_errors){
 
 
   write("---", file = "plot_report.Rmd", append = TRUE)
   write(" ", file = "plot_report.Rmd", append = TRUE)
+  write(paste0("__",teaching_db[i,4],"__"), file = "plot_report.Rmd", append = TRUE)
   write("  " , file = "plot_report.Rmd", append = TRUE)
-  write(paste("**",teaching_db[i,1],"**"), file = "plot_report.Rmd", append = TRUE)
+  write(paste0(teaching_db[i,3],"<span class=blinking-cursor>_</span>",sep = ""),file = "plot_report.Rmd", append = TRUE) #<- il problema è in questa aggiunta
   write("  " , file = "plot_report.Rmd", append = TRUE)
-  write(teaching_db[i,3], file = "plot_report.Rmd", append = TRUE)
-  # write("  " , file = "plot_report.Rmd", append = TRUE)
 
 }
-
   rmarkdown::render("plot_report.Rmd")
   system("open plot_report.html")
 }
+
 
