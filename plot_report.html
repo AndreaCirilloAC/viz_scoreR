@@ -490,25 +490,25 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <td style="text-align: left;">adequateness of labeling</td>
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.2</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">data density</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">data to ink ratio</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.5</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">readability of the plot</td>
-<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">1.0</td>
 </tr>
 </tbody>
 </table>
@@ -521,16 +521,6 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <section class="slide level2">
 
 <p>I will give you an advice on how to fix your plot for each test failed<span class="blinking-cursor">_</span></p>
-</section>
-<section class="slide level2">
-
-<p><strong>try to pick a better width for your bins</strong></p>
-<p>the histogram you specified is not the best possibile visualisation of your data. I have found that setting bins to a different width produces a better visualisation of your data structure. Look for the <a href="https://en.wikipedia.org/wiki/Freedman-Diaconis_rule">Freedman-Diaconis rule</a> to understand how to set the optimal width of your bins<span class="blinking-cursor">_</span></p>
-</section>
-<section class="slide level2">
-
-<p><strong>let’s flip your bars down!</strong></p>
-<p>humans are better able at comparing lengths when showed horizontally. Unless you are showing time-related information (i.e. time series over the x axis) try to flip your bars adding <code>coord_flip()</code> to your plot specification<span class="blinking-cursor">_</span></p>
 </section>
 <section class="slide level2">
 

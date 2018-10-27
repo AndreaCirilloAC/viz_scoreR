@@ -25,9 +25,11 @@ scorer_bot <- function(plot_object = NULL){
   # from metadata, leveraging area_label and ispositive attribute, we highligh which area of dataviz
   # shows problem for the plot
   # we will highlight those area to our user
+  is_histogram <- test_for_histogram(plot_object,plot_object$layers %>% length())
   
   plot_metadata %>% 
     select(area_label,ispositive) %>% 
+    {if (is_histogram == TRUE) filter(., topic_label != "number_of_bins" & topic_label != "flipped_barplot" ) } %>% 
     group_by(area_label,ispositive) %>% 
     count() %>% 
     spread(key = ispositive, value = n) %>% 

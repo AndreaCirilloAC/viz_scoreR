@@ -48,18 +48,6 @@ I will give you an advice on how to fix your plot for each test failed<span clas
  
 ---
  
-__try to pick a better width for your bins__
-  
-the histogram you specified is not the best possibile visualisation of your data. I have found that setting bins to a different width produces a better visualisation of your data structure. Look for the  <a href='https://en.wikipedia.org/wiki/Freedman-Diaconis_rule'>Freedman-Diaconis rule</a>  to understand how to set the optimal width of your bins<span class=blinking-cursor>_</span>
-  
----
- 
-__let's flip your bars down!__
-  
-humans are better able at comparing lengths when showed horizontally. Unless you are showing time-related information (i.e. time series over the x axis) try to flip your bars adding <code>coord_flip()</code> to your plot specification<span class=blinking-cursor>_</span>
-  
----
- 
 __try to remove the grey background__
   
 you are employing the default ggplot theme. while it is generally fit for its purpose you should consider removing that grey background, which lowers your data to ink ratio. Please find more info about data ink ratio on the <a href='https://infovis-wiki.net/wiki/Data-Ink_Ratio'>official info vis wiki page</a><span class=blinking-cursor>_</span>
