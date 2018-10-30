@@ -1,0 +1,94 @@
+scorer_bot <- function(plot_object = NULL){
+ plot_metadata_raw <- metadata_reader(plot_object) %>% as.data.frame()
+ plot_metadata <- data.frame(area_label = unlist(plot_metadata_raw$area_label),
+                             topic_label = unlist(plot_metadata_raw$topic_label),
+                             test        = unlist(plot_metadata_raw$test),
+                             ispositive = unlist(plot_metadata_raw$ispositive)) 
+
+  score <- scorer(plot_metadata)
+ 
+  score_map <- data.frame(lower = c(0,0.11,0.41,0.71),
+                          upper = c(0.10,0.40,0.70,1),
+                          judgment = c("poorly", "improvable","good!", "great!"))
+
+  score_map$score_match <- mapply(between,
+                                  x = rep(score,nrow(score_map)), 
+                                  left = score_map$lower,
+                                  right = score_map$upper,
+                                  SIMPLIFY = TRUE)
+  score_map %>% 
+    filter(score_match == TRUE) %>% 
+    select(judgment) %>% pull() %>% 
+    as.character() -> judgment
+
+
+
+  # from metadata, leveraging area_label and ispositive attribute, we highligh which area of dataviz
+  # shows problem for the plot
+  # we will highlight those area to our user
+  is_histogram <- test_for_histogram(plot_object,plot_object$layers %>% length())
+
+  plot_metadata %>% 
+  {if (is_histogram == FALSE) filter(., topic_label != "number_of_bins" & topic_label != "flipped_barplot" ) else filter(.,topic_label !="stop")}  %>% 
+    select(area_label,ispositive) %>% 
+    group_by(area_label,ispositive) %>% 
+    count() %>% 
+    spread(key = ispositive, value = n) %>% 
+    mutate(positive_ratio = `TRUE`/sum(`TRUE`,`FALSE`, na.rm = TRUE)) %>%
+    mutate(area_ratio     =round(positive_ratio,2)) %>% 
+    rename(passed = `TRUE`,failed = `FALSE`) %>% 
+    mutate(total = sum(passed , failed,na.rm = TRUE)) -> positive_ratio_db
+  
+  positive_ratio_db %>% 
+    select(area_label,failed,passed,area_ratio) -> positive_ratio_show
+  
+  positive_ratio_show[is.na(positive_ratio_show)] <- 0 
+  
+  positive_ratio_db %>% 
+    filter(positive_ratio == min(.$positive_ratio)) %>% 
+    select(area_label) %>% 
+    pull() %>% 
+    as.character() -> worst_area # the worst area was the one in which the plot obtained ther worst positive rate,
+  #i.e. number of positive results in test given the overall number of test for that area.
+  
+  # we then select each specific test showing problems, so to give specific advice for each of this elements.
+  plot_metadata %>% 
+  {if (is_histogram == FALSE) filter(., topic_label != "number_of_bins" & topic_label != "flipped_barplot" ) else filter(.,topic_label !="stop")}  %>% 
+    select(topic_label,ispositive) %>% 
+    filter(ispositive == FALSE) -> errors_db
+  
+  # merge errors_db with a db storing a suggestion for each possible error
+  advices_db <- read.csv("plot_advices.csv", sep = ";", stringsAsFactors = FALSE)
+  
+  errors_db %>% 
+    left_join(.,advices_db,by = "topic_label") -> teaching_db
+
+n_of_errors <- nrow(errors_db)
+
+file.copy("report.Rmd", to = "plot_report.Rmd",overwrite = TRUE)
+write(" ", file = "plot_report.Rmd", append = TRUE)
+for (i in 1:n_of_errors){
+
+
+  write("---", file = "plot_report.Rmd", append = TRUE)
+  write(" ", file = "plot_report.Rmd", append = TRUE)
+  write(paste0("__",teaching_db[i,4],"__"), file = "plot_report.Rmd", append = TRUE)
+  write("  " , file = "plot_report.Rmd", append = TRUE)
+  write(paste0(teaching_db[i,3],"<span class=blinking-cursor>_</span>",sep = ""),file = "plot_report.Rmd", append = TRUE) #<- il problema è in questa aggiunta
+  write("  " , file = "plot_report.Rmd", append = TRUE)
+
+}
+
+ write("---", file = "plot_report.Rmd", append = TRUE)
+ write("Hope you will find this useful and will help you improve your plot", file = "plot_report.Rmd", append = TRUE)
+ write("  " , file = "plot_report.Rmd", append = TRUE)
+ write("Cheers,", file = "plot_report.Rmd", append = TRUE)
+ write("  " , file = "plot_report.Rmd", append = TRUE)
+ write("_your dataviz bot advisor_", file = "plot_report.Rmd", append = TRUE)
+ write("  " , file = "plot_report.Rmd", append = TRUE)
+ 
+  rmarkdown::render("plot_report.Rmd")
+  system("open plot_report.html")
+}
+
+
