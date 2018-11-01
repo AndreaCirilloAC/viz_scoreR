@@ -1,4 +1,0 @@
-library(cluster) # function daisy
-library(dplyr)
-library(ggplot2)
-library(energy)
