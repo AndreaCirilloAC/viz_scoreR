@@ -1,3 +1,5 @@
+#' @importFrom ggplot2 ggplot
+#'
 score <- 0
 
 dat <- data.frame(
