@@ -6,7 +6,7 @@ output:
     transition: fade
     theme: serif
 ---
-
+<!-- custom CSS code for blinking cursor -->
 <style type="text/css">
     .blinking-cursor {
   font-weight: 100;
@@ -75,7 +75,22 @@ I have looked into your plot and evaluated it against dataviz best practices and
 ---
 
 your plot looks  __`r judgment`__<span class=blinking-cursor>_</span>
- 
+
+to be more precise your plot scored __`r round(score,2)`__
+
+
+---
+
+here it is a comparison between your score and the score obtained from plots included within the estimation database.
+
+```{r eval=TRUE, include=TRUE,echo=FALSE, fig.height=5,fig.width=7,5}
+
+score_plot
+
+```
+
+<small>you can find more info about how my scoring algorithm works on my <a hrefandreacirillo.com/viz_bot>official webpage</a></small>
+
 ---
 
 let me tell you a bit more about this<span class=blinking-cursor>_</span>
@@ -102,12 +117,6 @@ is now time to learn how to make your plot more effective applying dataviz princ
 I will give you an advice on how to fix your plot for each test failed<span class=blinking-cursor>_</span>
  
  
----
- 
-__you should highlight trends going on__
-  
-it seems a strong correlation is going on between your data. Try to help the reader of your plot spotting it adding <code>geom_smooth()</code> to your plot<span class=blinking-cursor>_</span>
-  
 ---
  
 __your plot is crowded due to overplotting__
@@ -137,12 +146,6 @@ __let us understand your plot better with a subtitle__
 __use caption to add integrity to your plot__
   
 your plot is missing a caption. While not mandatories , captions are used to provide info about sources and reference period of your plot. This is crucial to increase the level of graphical integrity of your plot<span class=blinking-cursor>_</span>
-  
----
- 
-__mark that outliers__
-  
-I have found some outliers in your data  ,and they do not seem to be explicitly labeled in your plot.To increase the level of meaningfulness you should consider labelling them<span class=blinking-cursor>_</span>
   
 ---
 Hope you will find this useful and will help you improve your plot

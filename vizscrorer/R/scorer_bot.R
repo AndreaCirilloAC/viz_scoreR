@@ -6,6 +6,24 @@ scorer_bot <- function(plot_object = NULL){
                              ispositive = unlist(plot_metadata_raw$ispositive))
 
   score <- scorer(plot_metadata)
+  score_db <- data.frame("good"=score,"count"=1)
+  comparison_path <- system.file("extdata", "comparison_db.csv", package = "vizscrorer")
+  comparison_db <- read.csv(comparison_path, sep = ",", stringsAsFactors = FALSE) %>%
+    select(good,model)
+
+  comparison_db %>%
+    ggplot(aes(x = good))+
+    geom_histogram(binwidth = 0.01,colour = "grey80",fill ="grey80")+
+    geom_point(data =score_db,
+               aes(x=good,y=count),
+               inherit.aes = FALSE,colour = "red",size=3)+
+    theme_minimal()+
+    xlab("score")+
+    labs(title="comparison among training plots and your plot")+
+    annotate("segment", x = score, xend = 0.4, y = 1, yend = 5,colour ="grey50")+
+  annotate(geom ="text",
+           label = "you are here",
+           x = 0.4,y=5.1,colour="grey20",size= 7) -> score_plot
 
   score_map <- data.frame(lower = c(0,0.11,0.41,0.71),
                           upper = c(0.10,0.40,0.70,1),
