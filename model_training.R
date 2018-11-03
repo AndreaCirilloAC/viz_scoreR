@@ -7,8 +7,6 @@ estimation_db  %>%
           select(-plot_name)-> final_db
   
 
-
-
 createDataPartition(
   y = final_db$good_plot,
   ## the outcome data are needed
@@ -46,7 +44,12 @@ probabilities <- extractProb(list(gbm=gbm_fit),testX = testing[,-ncol(testing)],
 probabilities_test <- probabilities %>% filter(dataType == "Test")
 confusionMatrix(probabilities_test$pred,probabilities_test$obs, positive = "good")
 
-save(gbm_fit, file = "obj/model_fit.Rdata")
+#save(gbm_fit, file = "vizscrorer//model_fit.Rdata")
+devtools::use_data(gbm_fit,pkg = "vizscrorer",internal = TRUE, overwrite = TRUE)
+
+#create a data frame to be used when comparing analysed plot with the estimation db
+probabilities %>% select(good,model)->comparison_db
+write.csv(comparison_db, file = "vizscrorer/inst/extdata/comparison_db.csv")
 
 #aggiungi questi:
 # http://www.cookbook-r.com/Graphs/Plotting_distributions_(ggplot2)/ ca 16
