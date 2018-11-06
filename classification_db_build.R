@@ -3,8 +3,10 @@ library(dplyr)
 library(ggplot2)
 library(energy)
 ## file sourcing to obtain function in the global environment and the final metadata_reader function
-scripts <- (paste("R/",list.files("R"),sep =""))
-for ( i in 1: length(scripts)){
+scripts <- (paste("vizscrorer/R/",list.files("vizscrorer/R"),sep =""))
+scripts <- scripts[!grepl(".rda",scripts)]
+
+for ( i in 1:length(scripts)){
   source(scripts[i],local = TRUE)
 }
 
